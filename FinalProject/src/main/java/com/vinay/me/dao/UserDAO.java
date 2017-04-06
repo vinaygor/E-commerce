@@ -3,6 +3,7 @@ package com.vinay.me.dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import com.vinay.me.exception.UserException;
+import com.vinay.me.pojo.Address;
 import com.vinay.me.pojo.Email;
 import com.vinay.me.pojo.User;
 
@@ -46,14 +47,20 @@ public class UserDAO extends DAO {
 		try {
 			begin();
 			System.out.println("inside DAO");
-
+			System.out.println(u.getAddress().getCity());
+			
+			Address address = new Address(u.getAddress().getStreetAddress(),u.getAddress().getCity(),
+					u.getAddress().getState(),u.getAddress().getCountry(),u.getAddress().getZipCode());
+			
 			Email email = new Email(u.getEmail().getEmailAddress());
-			User user = new User(u.getUsername(), u.getPassword());
-			System.out.println(u.getFirstName());
+			User user = new User(u.getUsername(), u.getPassword(),u.getDateOfBirth());
+			
 			user.setFirstName(u.getFirstName());
 			user.setLastName(u.getLastName());
 			user.setEmail(email);
+			user.setAddress(address);
 			email.setUser(user);
+			address.setUser(user);
 			getSession().save(user);
 			commit();
 			return user;

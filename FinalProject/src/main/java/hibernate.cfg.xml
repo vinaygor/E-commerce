@@ -15,5 +15,7 @@
     	<mapping class="com.vinay.me.pojo.User" />
     	<mapping class="com.vinay.me.pojo.Email" />
     	<mapping class="com.vinay.me.pojo.Person" />
+    	<mapping class="com.vinay.me.pojo.Address" />
+    	
     </session-factory>
 </hibernate-configuration>

@@ -69,9 +69,9 @@ public class UserRedirect {
 
 		validator.validate(user, result);
 
-		if (result.hasErrors()) {
-			return new ModelAndView("register_customer", "user", user);
-		}
+//		if (result.hasErrors()) {
+//			return new ModelAndView("register_customer", "user", user);
+//		}
 
 		try {
 
@@ -81,7 +81,7 @@ public class UserRedirect {
 			
 			request.getSession().setAttribute("user", u);
 			
-			return new ModelAndView("login", "user", u);
+			return new ModelAndView("products", "user", u);
 
 		} catch (UserException e) {
 			System.out.println("Exception: " + e.getMessage());

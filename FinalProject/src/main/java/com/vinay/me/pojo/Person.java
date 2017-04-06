@@ -25,10 +25,7 @@ public class Person {
 	@Column(name="lastName")
 	private String lastName;
 	
-	@Column(name="dateOfBirth")
-	private String dateOfBirth;
-	
-	
+		
 	public Person(){
 		
 	}

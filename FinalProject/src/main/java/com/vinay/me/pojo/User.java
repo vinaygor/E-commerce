@@ -20,9 +20,38 @@ public class User extends Person{
 	@Column(name="password")
 	private String password;
 	
+	@Column(name="dateOfBirth")
+	private String dateOfBirth;
+	
 	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
 	private Email email;
 	
+	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
+	private Address address;
+	
+
+	
+	
+	public User(String username, String password, String dateOfBirth)
+	{
+		this.username=username;
+		this.password=password;
+		this.dateOfBirth=dateOfBirth;
+//		this.address = new Address();
+	}
+	
+	public User(){
+		
+	}
+	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	public Email getEmail() {
 		return email;
 	}
@@ -31,13 +60,14 @@ public class User extends Person{
 		this.email = email;
 	}
 	
-	public User(String username, String password)
-	{
-		this.username=username;
-		this.password=password;
+	public String getDateOfBirth() {
+		return dateOfBirth;
 	}
-	
-	public User(){}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
 
 	public String getUsername() {
 		return username;
