@@ -73,6 +73,7 @@ public class UserController {
 
 	}
 	
+	
 	@RequestMapping(value = "/user/customer_register.htm", method = RequestMethod.GET)
 	protected ModelAndView registerUser() throws Exception {
 		System.out.print("registerUser");
@@ -107,5 +108,41 @@ public class UserController {
 			return new ModelAndView("error", "errorMessage", "error while login");
 		}
 	}
+	
+	@RequestMapping(value = "/user/seller_registration.htm", method = RequestMethod.GET)
+	protected ModelAndView registerSeller() throws Exception {
+		System.out.print("registerSeller");
+
+		return new ModelAndView("register-seller", "user", new User());
+
+	}
+	
+	@RequestMapping(value = "/user/seller_register.htm", method = RequestMethod.POST)
+	protected ModelAndView registerNewSeller(HttpServletRequest request,  @ModelAttribute("user") User user, BindingResult result) throws Exception {
+
+		validator.validate(user, result);
+
+		if (result.hasErrors()) {
+			return new ModelAndView("register-seller", "user", user);
+		}
+
+		try {
+
+			System.out.print("registerNewSeller");
+
+			user.setRole("Seller");
+			System.out.println("Address "+user.getAddress().getCity());
+			userDao.register(user);
+			
+			
+			
+			return new ModelAndView("login", "user", null);
+
+		} catch (UserException e) {
+			System.out.println("Exception: " + e.getMessage());
+			return new ModelAndView("error", "errorMessage", "error while login");
+		}
+	}
+
 
 }
