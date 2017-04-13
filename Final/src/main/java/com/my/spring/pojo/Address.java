@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -16,8 +18,8 @@ import org.hibernate.annotations.Parameter;
 @Table(name="address")
 public class Address {
 	@Id
-	@GeneratedValue(generator="generator")
-	@GenericGenerator(name="generator", strategy="foreign", parameters=@Parameter(name="property", value="user"))
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GenericGenerator(name="generator", strategy="foreign", parameters=@Parameter(name="property", value="user"))
 	@Column(name="ID", unique = true, nullable=false)
 	private long Id;
 	
@@ -36,20 +38,24 @@ public class Address {
 	@Column(name="zipCode")
 	private String zipCode;
 	
-	@OneToOne
-	@PrimaryKeyJoinColumn
+	@Column(name="addressType")
+	private String addressType;
+	
+	@ManyToOne
+	@PrimaryKeyJoinColumn(name="personID")
 	private User user;
 	
 	public Address(){}
 	
-	public Address(String streetAddress, String city, String state, String country, String zipCode)
+	public Address(String streetAddress, String city, String state, String country, String zipCode, String addressType)
 	{
 		this.streetAddress=streetAddress;
 		this.city=city;
 		this.state=state;
 		this.country=country;
 		this.zipCode=zipCode;
-		System.out.println("Inside :"+getCountry());
+		this.addressType=addressType;
+		System.out.println("Inside Address POJO: Country name - "+getCountry());
 	}
 
 	public long getId() {
@@ -108,6 +114,14 @@ public class Address {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getAddressType() {
+		return addressType;
+	}
+
+	public void setAddressType(String addressType) {
+		this.addressType = addressType;
 	}
 	
 	

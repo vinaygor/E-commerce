@@ -1,6 +1,8 @@
 package com.my.spring.pojo;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -29,8 +31,8 @@ public class User extends Person {
 	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
 	private Email email;
 	
-	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
-	private Address address;
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	private List<Address> address = new ArrayList<Address>();
 	
 	@Column(name="role")
 	private String role;
@@ -45,12 +47,16 @@ public class User extends Person {
 		this.username = username;
 		this.password = password;
 		this.role=role;
-		this.activeStatus=true;
+		this.setActiveStatus(true);
 		this.cardDetails=cardDetails;
+		
 	}
 
 	public User() {
-	
+		System.out.println("Inside User POJO ");
+		List<Address> address= new ArrayList<Address>();
+		address.add(new Address());
+		address.add(new Address());
 	}
 
 	public String getUsername() {
@@ -77,11 +83,13 @@ public class User extends Person {
 		this.email = email;
 	}
 
-	public Address getAddress() {
+	
+
+	public List<Address> getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(List<Address> address) {
 		this.address = address;
 	}
 

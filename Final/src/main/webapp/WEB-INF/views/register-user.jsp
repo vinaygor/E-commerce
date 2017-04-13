@@ -8,7 +8,7 @@
 <title>Add User Form</title>
 </head>
 <body>
-
+<script src="../resources/addMore.js" language="Javascript" type="text/javascript"></script>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 	<a href="${contextPath}">Go Back</a><br/>
@@ -17,7 +17,7 @@
 
 	<form:form action="${contextPath}/user/customer_register.htm" commandName="user"
 		method="post">
-
+		
 		<table>
 
 			<tr>
@@ -26,36 +26,7 @@
 					<font color="red"><form:errors path="name" /></font></td>
 			</tr>
 			
-			<tr>
-				<td>Street Address:</td>
-				<td><form:input path="address.streetAddress" size="30" required="required" />
-					<font color="red"><form:errors path="address.streetAddress" /></font></td>
-			</tr>
-			
-			<tr>
-				<td>City:</td>
-				<td><form:input path="address.city" size="30" required="required" />
-					<font color="red"><form:errors path="address.city" /></font></td>
-			</tr>
-
-			<tr>
-				<td>State:</td>
-				<td><form:input path="address.state" size="30" required="required" />
-					<font color="red"><form:errors path="address.state" /></font></td>
-			</tr>
-			
-			<tr>
-				<td>Country:</td>
-				<td><form:input path="address.country" size="30" required="required" />
-					<font color="red"><form:errors path="address.country" /></font></td>
-			</tr>
-			
-			<tr>
-				<td>Zip code:</td>
-				<td><form:input path="address.zipCode" size="30" required="required" />
-					<font color="red"><form:errors path="address.zipCode" /></font></td>
-			</tr>
-			
+						
 			<tr>
 				<td>Role:</td>
 				<td><form:input path="role" size="30" required="required" value="Customer" disabled="true" />
@@ -90,14 +61,86 @@
 							path="password" /></font></td>
 			</tr>
 
+			<tr>
+				<td>Address Type:</td>
+				<td><form:input path="address[0].addressType" size="30" disabled="true" value="Billing Address"/>
+					<font color="red"><form:errors path="address[0].addressType" /></font></td>
+			</tr>
 			
+						<tr>
+				<td>Street Address:</td>
+				<td><form:input path="address[0].streetAddress" size="30" required="required" />
+					<font color="red"><form:errors path="address[0].streetAddress" /></font></td>
+			</tr>
+			
+			<tr>
+				<td>City:</td>
+				<td><form:input path="address[0].city" size="30" required="required" />
+					<font color="red"><form:errors path="address[0].city" /></font></td>
+			</tr>
 
+			<tr>
+				<td>State:</td>
+				<td><form:input path="address[0].state" size="30" required="required" />
+					<font color="red"><form:errors path="address[0].state" /></font></td>
+			</tr>
+			
+			<tr>
+				<td>Country:</td>
+				<td><form:input path="address[0].country" size="30" required="required" />
+					<font color="red"><form:errors path="address[0].country" /></font></td>
+			</tr>
+			
+			<tr>
+				<td>Zip code:</td>
+				<td><form:input path="address[0].zipCode" size="30" required="required" />
+					<font color="red"><form:errors path="address[0].zipCode" /></font></td>
+			</tr>
+			
+			<tr>
+				<td>Address Type:</td>
+				<td><form:input path="address[1].addressType" size="30" disabled="true" value="Shipping Address"/>
+					<font color="red"><form:errors path="address[1].addressType" /></font></td>
+			</tr>
+			
+						<tr>
+				<td>Street Address:</td>
+				<td><form:input path="address[1].streetAddress" size="30" required="required" />
+					<font color="red"><form:errors path="address[1].streetAddress" /></font></td>
+			</tr>
+			
+			<tr>
+				<td>City:</td>
+				<td><form:input path="address[1].city" size="30" required="required" />
+					<font color="red"><form:errors path="address[1].city" /></font></td>
+			</tr>
+
+			<tr>
+				<td>State:</td>
+				<td><form:input path="address[1].state" size="30" required="required" />
+					<font color="red"><form:errors path="address[1].state" /></font></td>
+			</tr>
+			
+			<tr>
+				<td>Country:</td>
+				<td><form:input path="address[1].country" size="30" required="required" />
+					<font color="red"><form:errors path="address[1].country" /></font></td>
+			</tr>
+			
+			<tr>
+				<td>Zip code:</td>
+				<td><form:input path="address[1].zipCode" size="30" required="required" />
+					<font color="red"><form:errors path="address[1].zipCode" /></font></td>
+			</tr>
+			
+			
 			<tr>
 				<td colspan="2"><input type="submit" value="Register User" /></td>
 			</tr>
 		</table>
 
 	</form:form>
+	
 
 </body>
 </html>

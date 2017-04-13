@@ -1,5 +1,7 @@
 package com.my.spring.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.my.spring.dao.UserDAO;
 import com.my.spring.exception.UserException;
+import com.my.spring.pojo.Address;
 import com.my.spring.pojo.User;
 import com.my.spring.validator.UserValidator;
 
@@ -78,25 +81,29 @@ public class UserController {
 	protected ModelAndView registerUser() throws Exception {
 		System.out.print("registerUser");
 
-		return new ModelAndView("register-user", "user", new User());
+		User u= new User();
+		u.setAddress(new ArrayList<Address>());
+		return new ModelAndView("register-user", "user", u);
 
 	}
 	
 	@RequestMapping(value = "/user/customer_register.htm", method = RequestMethod.POST)
 	protected ModelAndView registerNewUser(HttpServletRequest request,  @ModelAttribute("user") User user, BindingResult result) throws Exception {
 
-		validator.validate(user, result);
-
-		if (result.hasErrors()) {
-			return new ModelAndView("register-user", "user", user);
-		}
+		System.out.println("Inside POST method");
+//		validator.validate(user, result);
+//
+//		if (result.hasErrors()) {
+//			return new ModelAndView("register-user", "user", user);
+//		}
 
 		try {
 
-			System.out.print("registerNewUser");
+			System.out.println("Controller /user/customer_register.htm - registerNewUser");
+			System.out.println("User name >>> "+user.getName());
 
 			user.setRole("Customer");
-			System.out.println("Address "+user.getAddress().getCity());
+			//System.out.println("Address "+user.getAddress().getCity());
 			userDao.register(user);
 			
 			
@@ -119,19 +126,19 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/seller_register.htm", method = RequestMethod.POST)
 	protected ModelAndView registerNewSeller(HttpServletRequest request,  @ModelAttribute("user") User user, BindingResult result) throws Exception {
+System.out.println("I'm inside");
+		//validator.validate(user, result);
 
-		validator.validate(user, result);
-
-		if (result.hasErrors()) {
-			return new ModelAndView("register-seller", "user", user);
-		}
+//		if (result.hasErrors()) {
+//			return new ModelAndView("register-seller", "user", user);
+//		}
 
 		try {
 
 			System.out.print("registerNewSeller");
 
 			user.setRole("Seller");
-			System.out.println("Address "+user.getAddress().getCity());
+			//System.out.println("Address "+user.getAddress().getCity());
 			userDao.register(user);
 			
 			

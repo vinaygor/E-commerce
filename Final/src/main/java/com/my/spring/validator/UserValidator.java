@@ -19,17 +19,18 @@ public class UserValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "error.invalid.password", "Password Required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email.emailAddress", "error.invalid.email.emailAddress",
 				"Email Required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.streetAddress", "error.invalid.address.streetAddress",
-				"Street Address Required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.city", "error.invalid.address.city",
-				"City Required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.state", "error.invalid.address.state",
-				"State Required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.country", "error.invalid.address.country",
-				"Country Required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.zipCode", "error.invalid.address.country",
-				"Country Required");
-		
+//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.streetAddress", "error.invalid.address.streetAddress",
+//				"Street Address Required");
+//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.city", "error.invalid.address.city",
+//				"City Required");
+//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.state", "error.invalid.address.state",
+//				"State Required");
+//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.country", "error.invalid.address.country",
+//				"Country Required");
+//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.zipCode", "error.invalid.address.zipCode",
+//				"Zip Code Required");
+//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address.addressType", "error.invalid.address.addressType",
+//				"Required");
 		// check if user exists
 		
 	}

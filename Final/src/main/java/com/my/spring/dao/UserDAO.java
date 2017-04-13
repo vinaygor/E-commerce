@@ -1,5 +1,8 @@
 package com.my.spring.dao;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import com.my.spring.exception.UserException;
@@ -46,18 +49,48 @@ public class UserDAO extends DAO {
 			throws UserException {
 		try {
 			begin();
-			System.out.println("inside DAO");
-
+			System.out.println("Register -- inside DAO");
+			System.out.println("Inside userDAO : Name of User"+u.getName());
 			Email email = new Email(u.getEmail().getEmailAddress());
+			
 			User user = new User(u.getUsername(), u.getPassword(),u.getRole(),u.getCardDetails());
-			Address address = new Address(u.getAddress().getStreetAddress(),u.getAddress().getCity(),u.getAddress().getState(),
-					u.getAddress().getCountry(),u.getAddress().getZipCode());
-
+			
+			
 			user.setName(u.getName());
 			user.setEmail(email);
-			user.setAddress(address);
+			
 			email.setUser(user);
-			address.setUser(user);
+			System.out.println("Inside UserDAO -- Username: "+user.getName());
+			List<Address> addressList = u.getAddress();
+			System.out.println("Iterator Address 1 detail: "+addressList.get(0).getAddressType());
+			Iterator<Address> it = addressList.iterator();
+			int i=0;
+			while(it.hasNext())
+			{
+				System.out.println("Inside 1");
+				
+				Address ua = it.next();
+				if(i==0)
+				{
+					System.out.println("Inside 2");
+					ua.setAddressType("Billing");
+					i++;
+				}
+				else
+				{
+					System.out.println("Inside 3");
+					ua.setAddressType("Shipping");
+				}
+				
+				System.out.println("Inside 4");
+			Address address = new Address(ua.getStreetAddress(),ua.getCity(),ua.getState(),
+					ua.getCountry(),ua.getZipCode(),ua.getAddressType());
+			
+			System.out.println("Inside 5");
+				address.setUser(user);
+				System.out.println("Inside 6");
+			}
+			user.setAddress(addressList);;
 			
 			getSession().save(user);
 			commit();

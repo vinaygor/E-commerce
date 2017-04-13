@@ -13,11 +13,15 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-
+<c:if test="${user.role == 'Seller' }">
 <a href="${contextPath}/category/add" >Add Category</a> <br />
 <a href="${contextPath}/advert/add" >Add Advertisement</a> <br />
 <a href="${contextPath}/advert/list" >View All Advertisements</a> <br />
+</c:if>
 
+<c:if test="${user.role == 'Customer' }">
+<a href="${contextPath}/advert/list" >View All Advertisements</a> <br />
+</c:if>
 
 </body>
 </html>

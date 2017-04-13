@@ -25,37 +25,42 @@
 				<td><form:input path="name" size="30" required="required" />
 					<font color="red"><form:errors path="name" /></font></td>
 			</tr>
+						<tr>
+				<td>Address Type:</td>
+				<td><form:input path="address[0].addressType" size="30" disabled="true" value="Billing Address"/>
+					<font color="red"><form:errors path="address[0].addressType" /></font></td>
+			</tr>
 			
-			<tr>
+						<tr>
 				<td>Street Address:</td>
-				<td><form:input path="address.streetAddress" size="30" required="required" />
-					<font color="red"><form:errors path="address.streetAddress" /></font></td>
+				<td><form:input path="address[0].streetAddress" size="30" required="required" />
+					<font color="red"><form:errors path="address[0].streetAddress" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>City:</td>
-				<td><form:input path="address.city" size="30" required="required" />
-					<font color="red"><form:errors path="address.city" /></font></td>
+				<td><form:input path="address[0].city" size="30" required="required" />
+					<font color="red"><form:errors path="address[0].city" /></font></td>
 			</tr>
 
 			<tr>
 				<td>State:</td>
-				<td><form:input path="address.state" size="30" required="required" />
-					<font color="red"><form:errors path="address.state" /></font></td>
+				<td><form:input path="address[0].state" size="30" required="required" />
+					<font color="red"><form:errors path="address[0].state" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>Country:</td>
-				<td><form:input path="address.country" size="30" required="required" />
-					<font color="red"><form:errors path="address.country" /></font></td>
+				<td><form:input path="address[0].country" size="30" required="required" />
+					<font color="red"><form:errors path="address[0].country" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>Zip code:</td>
-				<td><form:input path="address.zipCode" size="30" required="required" />
-					<font color="red"><form:errors path="address.zipCode" /></font></td>
+				<td><form:input path="address[0].zipCode" size="30" required="required" />
+					<font color="red"><form:errors path="address[0].zipCode" /></font></td>
 			</tr>
-			
+						
 			<tr>
 				<td>Role:</td>
 				<td><form:input path="role" size="30" required="required" value="Seller" disabled="true" />
