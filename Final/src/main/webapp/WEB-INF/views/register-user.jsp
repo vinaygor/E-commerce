@@ -8,7 +8,6 @@
 <title>Add User Form</title>
 </head>
 <body>
-<script src="../resources/addMore.js" language="Javascript" type="text/javascript"></script>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 	<a href="${contextPath}">Go Back</a><br/>
@@ -51,7 +50,11 @@
 			<tr>
 				<td>User Name:</td>
 				<td><form:input path="username" size="30" required="required" />
-					<font color="red"><form:errors path="username" /></font></td>
+					<font color="red"><form:errors path="username" /></font>
+					<c:if test="${flag ==true}">
+		<span style="color:red;">User name already exist. Please choose a different username.</span>
+		</c:if>
+		</td>
 			</tr>
 
 			<tr>
@@ -138,6 +141,7 @@
 				<td colspan="2"><input type="submit" value="Register User" /></td>
 			</tr>
 		</table>
+		
 
 	</form:form>
 	

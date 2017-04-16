@@ -4,6 +4,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import com.my.spring.dao.UserDAO;
+import com.my.spring.exception.UserException;
 import com.my.spring.pojo.User;
 
 public class UserValidator implements Validator {
@@ -14,6 +16,7 @@ public class UserValidator implements Validator {
 
 	public void validate(Object obj, Errors errors) {
 		User user = (User) obj;
+		System.out.println("Inside the validator");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "error.invalid.user", "Full Name Required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "error.invalid.user", "User Name Required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "error.invalid.password", "Password Required");

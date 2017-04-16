@@ -14,6 +14,39 @@ public class UserDAO extends DAO {
 
 	public UserDAO() {
 	}
+	
+	public int get(String username) throws UserException{
+		begin();
+		Query q=getSession().createQuery("from User where username =:username");
+		q.setString("username",username);
+		
+		User user=(User)q.uniqueResult();
+		if(user==null)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	
+
+	public int verifyUniqueEmail(String email) throws UserException{
+		begin();
+		Query q=getSession().createQuery("from Email where emailAddress =:emailAddress");
+		q.setString("emailAddress",email);
+		
+		Email emailObj=(Email)q.uniqueResult();
+		if(emailObj==null)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
 
 	public User get(String username, String password) throws UserException {
 		try {

@@ -71,7 +71,11 @@
 				<td>Email Id:</td>
 				<td><form:input path="email.emailAddress" size="30"
 						type="email" required="required" /> <font color="red"><form:errors
-							path="email.emailAddress" /></font></td>
+							path="email.emailAddress" /></font>
+							<c:if test="${emailflag ==true || both ==true}">
+		<span style="color:red;">Email already exist. Please choose a different email account.</span>
+		</c:if>
+							</td>
 			</tr>
 			
 			<tr>
@@ -85,7 +89,11 @@
 			<tr>
 				<td>User Name:</td>
 				<td><form:input path="username" size="30" required="required" />
-					<font color="red"><form:errors path="username" /></font></td>
+					<font color="red"><form:errors path="username" /></font>
+					<c:if test="${flag ==true || both ==true}">
+		<span style="color:red;">User name already exist. Please choose a different username.</span>
+		</c:if>
+					</td>
 			</tr>
 
 			<tr>

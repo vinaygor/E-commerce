@@ -10,8 +10,9 @@
 <body>
 
 <h1>Error Page</h1>
-<p>${errorMessage}</p>
-
+<c:if test="${errorMessage!='error while login' }">
+<p>${msg}</p>
+</c:if>
 
 
 </body>

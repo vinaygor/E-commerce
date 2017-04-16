@@ -34,7 +34,9 @@ public class UserController {
 
 	@InitBinder
 	private void initBinder(WebDataBinder binder) {
+		System.out.println("Inside initBinder");
 		binder.setValidator(validator);
+		System.out.println("Leaving initBinder");
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -53,8 +55,9 @@ public class UserController {
 		HttpSession session = (HttpSession) request.getSession();
 		
 		try {
-
+			
 			System.out.print("loginUser");
+			
 
 			User u = userDao.get(request.getParameter("username"), request.getParameter("password"));
 			
@@ -65,8 +68,10 @@ public class UserController {
 			}
 			
 			session.setAttribute("user", u);
-			
+			if(u.getRole().equalsIgnoreCase("Customer"))
 			return "user-home";
+			else
+			return "seller-home";
 
 		} catch (UserException e) {
 			System.out.println("Exception: " + e.getMessage());
@@ -98,17 +103,29 @@ public class UserController {
 //		}
 
 		try {
-
-			System.out.println("Controller /user/customer_register.htm - registerNewUser");
-			System.out.println("User name >>> "+user.getName());
-
-			user.setRole("Customer");
-			//System.out.println("Address "+user.getAddress().getCity());
-			userDao.register(user);
+				int userPresent = userDao.get(user.getUsername());
+				System.out.println("Checking if the user exists or not :"+userPresent);
+			if(userPresent==0)
+			{
+				System.out.println("Controller /user/customer_register.htm - registerNewUser");
+				System.out.println("User name >>> "+user.getName());
+	
+				user.setRole("Customer");
+				//System.out.println("Address "+user.getAddress().getCity());
+				userDao.register(user);
+				
+				
+				
+				return new ModelAndView("login", "user", null);
+				
+			}
+			else
+			{
+				System.out.println("Inside else part");
+				return new ModelAndView("register-user", "flag",true);
+			}
 			
-			
-			
-			return new ModelAndView("login", "user", null);
+		
 
 		} catch (UserException e) {
 			System.out.println("Exception: " + e.getMessage());
@@ -134,6 +151,13 @@ System.out.println("I'm inside");
 //		}
 
 		try {
+			
+			int userPresent = userDao.get(user.getUsername());
+			int emailPresent = userDao.verifyUniqueEmail(user.getEmail().getEmailAddress());
+			System.out.println("Checking if the user exists or not :"+userPresent);
+			System.out.println("Checking if the email exists or not :"+emailPresent);
+		if(userPresent==0 && emailPresent==0)
+		{
 
 			System.out.print("registerNewSeller");
 
@@ -144,7 +168,23 @@ System.out.println("I'm inside");
 			
 			
 			return new ModelAndView("login", "user", null);
-
+		}
+		else
+		{
+			if(userPresent==1&&emailPresent==0)
+			{
+				System.out.println("Inside else part");
+				return new ModelAndView("register-seller", "flag",true);
+			}
+			else if(userPresent==0&&emailPresent==1)
+			{
+				return new ModelAndView("register-seller", "emailflag",true);
+			}
+			else
+			{
+				return new ModelAndView("register-seller", "both",true);
+			}
+		}
 		} catch (UserException e) {
 			System.out.println("Exception: " + e.getMessage());
 			return new ModelAndView("error", "errorMessage", "error while login");
