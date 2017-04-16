@@ -31,8 +31,8 @@ public class User extends Person {
 	@OneToOne(mappedBy="user", cascade=CascadeType.ALL)
 	private Email email;
 	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
-	private List<Address> address = new ArrayList<Address>();
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
+	private List<Address> address;
 	
 	@Column(name="role")
 	private String role;

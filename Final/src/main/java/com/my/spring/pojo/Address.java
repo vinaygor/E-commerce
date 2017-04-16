@@ -1,5 +1,6 @@
 package com.my.spring.pojo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,6 @@ import org.hibernate.annotations.Parameter;
 public class Address {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	//@GenericGenerator(name="generator", strategy="foreign", parameters=@Parameter(name="property", value="user"))
 	@Column(name="ID", unique = true, nullable=false)
 	private long Id;
 	
@@ -42,7 +42,6 @@ public class Address {
 	private String addressType;
 	
 	@ManyToOne
-	@PrimaryKeyJoinColumn(name="personID")
 	private User user;
 	
 	public Address(){}
