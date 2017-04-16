@@ -47,7 +47,7 @@ public class User extends Person {
 		this.username = username;
 		this.password = password;
 		this.role=role;
-		this.setActiveStatus(true);
+		this.setActiveStatus(false);
 		this.cardDetails=cardDetails;
 		
 	}

@@ -8,11 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<a href="${contextPath}/">Home</a><br/>
 <h1>Error Page</h1>
-<c:if test="${errorMessage!='error while login' }">
-<p>${msg}</p>
-</c:if>
+
+<p>${errorMessage}</p>
+
 
 
 </body>

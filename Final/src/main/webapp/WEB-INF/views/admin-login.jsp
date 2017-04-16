@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Online Store</title>
+<title>Admin Login</title>
 </head>
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <a href="${contextPath}/">Home</a><br/>
-	<h2>Login</h2>
-	<form action="${contextPath}/user/login.htm" method="post">
+	<h2>Admin Login</h2>
+	<form action="${contextPath}/admin/login.htm" method="post">
 	
 		<table>
 		<tr>
@@ -29,6 +29,9 @@
 		</tr>
 				
 		</table>
+		<c:if test="${errorMessage==true }">
+		<p style="color:red">Username/Password combination does not match</p>
+		</c:if>
 
 	</form>
 

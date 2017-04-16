@@ -19,6 +19,9 @@
 <td>
 <a style="float:center" href="user/login.htm">Login</a><br/>
 </td>
+<td>
+<a style="float:center" href="admin/login.htm">Admin Login</a><br/>
+</td>
 </tr>
 </table>
 

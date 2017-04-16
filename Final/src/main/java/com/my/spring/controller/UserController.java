@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.my.spring.dao.AdminDAO;
 import com.my.spring.dao.UserDAO;
 import com.my.spring.exception.UserException;
 import com.my.spring.pojo.Address;
@@ -31,6 +33,9 @@ public class UserController {
 	@Autowired
 	@Qualifier("userValidator")
 	UserValidator validator;
+	
+	@Autowired
+	AdminDAO adminDao;
 
 	@InitBinder
 	private void initBinder(WebDataBinder binder) {
@@ -67,11 +72,19 @@ public class UserController {
 				return "error";
 			}
 			
+			if(u.isActiveStatus())
+			{
 			session.setAttribute("user", u);
 			if(u.getRole().equalsIgnoreCase("Customer"))
 			return "user-home";
 			else
 			return "seller-home";
+			}
+			else
+			{
+				session.setAttribute("errorMessage", "Your Account is inactive. Please contact admin.");
+				return "error";
+			}
 
 		} catch (UserException e) {
 			System.out.println("Exception: " + e.getMessage());
