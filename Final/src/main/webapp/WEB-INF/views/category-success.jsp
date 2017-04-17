@@ -11,7 +11,7 @@
     <body>
     	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-	    <a href="${contextPath}/user/">Home</a><br/>
+	    <a href="${contextPath}/">Home</a><br/>
     
         <h2>New Category Created Successfully: ${category.title}</h2>
         

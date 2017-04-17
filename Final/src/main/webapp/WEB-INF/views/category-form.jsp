@@ -12,12 +12,12 @@
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-
+	<a href ="${contextPath}/admin/dashboard.htm">Dashboard</a>
 
 	<h2>Add a New Category</h2>
 
 
-	<form:form action="${contextPath}/category/add" method="post" commandName="category">
+	<form:form action="${contextPath}/admin/category/add.htm" method="post" commandName="category">
 
 		<table>
 			<tr>
@@ -30,7 +30,12 @@
 				<td colspan="2"><input type="submit" value="Create Category" /></td>
 			</tr>
 		</table>
-
+		<c:if test="${errorMessage!=null}">
+			<p style="color:red;">${errorMessage}</p>
+		</c:if>
+		<c:if test="${message!=null}">
+			<p style="color:green;">${message}</p>
+		</c:if>
 	</form:form>
 
 </body>

@@ -29,11 +29,11 @@ public class Category {
     
 	@ManyToMany
 	@JoinTable(
-		name="category_advert_table",
+		name="category_product_table",
 		joinColumns={@JoinColumn(name="categoryID",nullable=false,updatable=false)},
-		inverseJoinColumns={@JoinColumn(name="advertID")}
+		inverseJoinColumns={@JoinColumn(name="productId")}
 	)
-	private Set<Advert> adverts = new HashSet<Advert>();
+	private Set<Product> products = new HashSet<Product>();
 
     public Category(String title) {
         this.title = title;
@@ -58,12 +58,12 @@ public class Category {
 		this.title = title;
 	}
 
-	public Set<Advert> getAdverts() {
-		return adverts;
+	public Set<Product> getAdverts() {
+		return products;
 	}
 
-	public void setAdverts(Set<Advert> adverts) {
-		this.adverts = adverts;
+	public void setAdverts(Set<Product> products) {
+		this.products = products;
 	}
 
 	@Override 

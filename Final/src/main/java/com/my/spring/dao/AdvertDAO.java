@@ -8,12 +8,12 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
 import com.my.spring.exception.AdvertException;
-import com.my.spring.pojo.Advert;
+import com.my.spring.pojo.Product;
 import com.my.spring.pojo.Category;
 
 public class AdvertDAO extends DAO {
 
-    public Advert create(Advert advert)
+    public Product create(Product advert)
             throws AdvertException {
         try {
             begin();            
@@ -27,7 +27,7 @@ public class AdvertDAO extends DAO {
         }
     }
 
-    public void delete(Advert advert)
+    public void delete(Product advert)
             throws AdvertException {
         try {
             begin();
@@ -39,12 +39,12 @@ public class AdvertDAO extends DAO {
         }
     }
     
-    public List<Advert> list() throws AdvertException{
+    public List<Product> list() throws AdvertException{
     	
     	try {
             begin();
             Query q = getSession().createQuery("from Advert");
-            List<Advert> adverts = q.list();
+            List<Product> adverts = q.list();
             commit();
             return adverts;
         } catch (HibernateException e) {

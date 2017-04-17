@@ -16,7 +16,7 @@ import com.my.spring.dao.AdvertDAO;
 import com.my.spring.dao.CategoryDAO;
 import com.my.spring.dao.UserDAO;
 import com.my.spring.exception.AdvertException;
-import com.my.spring.pojo.Advert;
+import com.my.spring.pojo.Product;
 import com.my.spring.pojo.Category;
 import com.my.spring.pojo.User;
 
@@ -38,7 +38,7 @@ public class AdvertController {
 		
 
 		@RequestMapping(value = "/advert/add", method = RequestMethod.POST)
-		public ModelAndView addCategory(@ModelAttribute("advert") Advert advert, BindingResult result) throws Exception {
+		public ModelAndView addCategory(@ModelAttribute("advert") Product advert, BindingResult result) throws Exception {
 
 			try {			
 				
@@ -68,7 +68,7 @@ public class AdvertController {
 
 			try {			
 				
-				List<Advert> adverts = advertDao.list();
+				List<Product> adverts = advertDao.list();
 				return new ModelAndView("advert-list", "adverts", adverts);
 				
 			} catch (AdvertException e) {
@@ -83,7 +83,7 @@ public class AdvertController {
 		public ModelAndView initializeForm(HttpServletRequest request) throws Exception {		
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("categories", categoryDAO.list());			
-			mv.addObject("advert", new Advert());
+			mv.addObject("advert", new Product());
 			mv.setViewName("advert-form");
 			return mv;
 		}

@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,16 +19,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.spring.dao.AdminDAO;
+import com.my.spring.dao.CategoryDAO;
 import com.my.spring.exception.AdminException;
+import com.my.spring.exception.CategoryException;
 import com.my.spring.pojo.Admin;
 import com.my.spring.pojo.Category;
 import com.my.spring.pojo.User;
+import com.my.spring.validator.CategoryValidator;
 
 @Controller
 public class AdminController {
 	
 	@Autowired
 	AdminDAO adminDao;
+	
+	@Autowired
+	@Qualifier("categoryValidator")
+	CategoryValidator categoryValidator;
+	
+	@Autowired
+	@Qualifier("categoryDao")
+	CategoryDAO categoryDAO;
 
 	static int i=0;
 	@RequestMapping(value="admin/login.htm", method=RequestMethod.GET)
@@ -85,9 +99,46 @@ public class AdminController {
 //			return new ModelAndView("error","null",null);
 	}
 	
-	@RequestMapping(value="admin/category/add.htm", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/view-seller.htm", method=RequestMethod.GET)
+	public String viewSellersPage() throws AdminException{
+		
+		return "admin-view-sellers";
+	}
+	
+	@RequestMapping(value="/admin/category/add.htm", method=RequestMethod.GET)
 	public ModelAndView createNewCategory() throws Exception{
+		System.out.println("Inside GET method Admin Controller / Categoories");
 		return new ModelAndView("category-form","category",new Category());
 	}
 	
+	@RequestMapping(value="/admin/category/add.htm", method=RequestMethod.POST)
+	public ModelAndView addCategory(@ModelAttribute("category") Category category, BindingResult result) throws Exception {
+		categoryValidator.validate(category, result);
+		
+		if (result.hasErrors()) {
+			return new ModelAndView("category-form", "category", category);
+		}
+
+		try {			
+			//System.out.println("Inside Admin Controller / Category");
+			Category checkCat = categoryDAO.get(category.getTitle());
+			if(checkCat==null)
+ 			category = categoryDAO.create(category.getTitle());
+			else
+				return new ModelAndView("error", "errorMessage", "Category Name already present. Try a different name"); 
+		} catch (CategoryException e) {
+			System.out.println(e.getMessage());
+			return new ModelAndView("category-form", "errorMessage", "Could not create a new Category");
+		}
+		return new ModelAndView("category-form", "message", "New Category "+category.getTitle()+" has been created!");
+		
+	}
+
+	@RequestMapping(value="/admin/dashboard.htm", method=RequestMethod.GET)
+	public String dashBoard() throws AdminException{
+		
+		return "admin-home";
+	}
+	
 }
+	

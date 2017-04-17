@@ -9,7 +9,7 @@ import com.my.spring.exception.AdminException;
 import com.my.spring.exception.AdvertException;
 import com.my.spring.exception.UserException;
 import com.my.spring.pojo.Admin;
-import com.my.spring.pojo.Advert;
+import com.my.spring.pojo.Product;
 import com.my.spring.pojo.User;
 
 public class AdminDAO extends DAO{

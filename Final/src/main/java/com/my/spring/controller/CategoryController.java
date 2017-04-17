@@ -33,29 +33,32 @@ public class CategoryController {
 			binder.setValidator(categoryValidator);
 		}
 
-		@RequestMapping(value = "/category/add", method = RequestMethod.POST)
+//		@RequestMapping(value="admin/category/add.htm", method=RequestMethod.GET)
+		public ModelAndView createNewCategory() throws Exception{
+			System.out.println("Inside GET method Admin Controller / Categoories");
+			return new ModelAndView("category-form","category",new Category());
+		}
+		
+//		@RequestMapping(value="admin/category/add.htm", method=RequestMethod.POST)
 		public ModelAndView addCategory(@ModelAttribute("category") Category category, BindingResult result) throws Exception {
-			
 			categoryValidator.validate(category, result);
 			
 			if (result.hasErrors()) {
 				return new ModelAndView("category-form", "category", category);
 			}
 
-			try {				
-				category = categoryDAO.create(category.getTitle());
+			try {			
+				//System.out.println("Inside Admin Controller / Category");
+				Category checkCat = categoryDAO.get(category.getTitle());
+				if(checkCat==null)
+	 			category = categoryDAO.create(category.getTitle());
+				else
+					return new ModelAndView("error", "errorMessage", "Category Name already present. Try a different name"); 
 			} catch (CategoryException e) {
 				System.out.println(e.getMessage());
-				return new ModelAndView("error", "errorMessage", "error while login");
+				return new ModelAndView("category-form", "errorMessage", "Could not create a new Category");
 			}
-			return new ModelAndView("category-success", "category", category);
+			return new ModelAndView("category-form", "message", "New Category "+category.getTitle()+" has been created!");
 			
 		}
-
-		@RequestMapping(value="/category/add", method = RequestMethod.GET)
-		public ModelAndView initializeForm() throws Exception {			
-			return new ModelAndView("category-form", "category", new Category());
-		}
-
-
 }
