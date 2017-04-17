@@ -7,15 +7,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.spring.dao.AdminDAO;
 import com.my.spring.exception.AdminException;
 import com.my.spring.pojo.Admin;
+import com.my.spring.pojo.Category;
 import com.my.spring.pojo.User;
 
 @Controller
@@ -66,16 +69,25 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping(value="admin/updateStatus.htm")
-	public String updateActiveStatus(HttpServletRequest request,@RequestParam String id) throws AdminException{
+	@RequestMapping(value="admin/updateStatus.htm", method=RequestMethod.GET)
+	public @ResponseBody String updateActiveStatus(HttpServletRequest request) throws AdminException{
 	
 		
-		int userId=Integer.parseInt(id);
-		int result = adminDao.updateActiveStatus(userId);
-		if(result!=0)
-		return "admin-home";
-		else
-			return "error";
+		System.out.println("Inside the updateStatus function");
+		int userId=Integer.parseInt(request.getParameter("id"));
+		String result = adminDao.updateActiveStatus(userId);
+		System.out.println("Printing the result :"+result);
+		System.out.println(String.valueOf(userId));
+		return String.valueOf(userId);
+		
+		//return new ModelAndView("admin-home","null",null);
+//		else
+//			return new ModelAndView("error","null",null);
+	}
+	
+	@RequestMapping(value="admin/category/add.htm", method=RequestMethod.GET)
+	public ModelAndView createNewCategory() throws Exception{
+		return new ModelAndView("category-form","category",new Category());
 	}
 	
 }

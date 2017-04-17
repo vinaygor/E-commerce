@@ -67,7 +67,7 @@ public class AdminDAO extends DAO{
         }
 	}
 	
-	public int updateActiveStatus(int personID) throws AdminException{
+	public String updateActiveStatus(int personID) throws AdminException{
 		try{
 			begin();
 			Query q=getSession().createQuery("from User where personID = :personID");
@@ -78,30 +78,30 @@ public class AdminDAO extends DAO{
 			if(status==true)
 			{
 				q=getSession().createQuery("Update User set activeStatus = :status where personID = :personID");
-				q.setInteger("status",0);
+				q.setBoolean("status",false);
 				q.setLong("personID", personID);
 				int result = q.executeUpdate();
-				
+				commit();
 				q=getSession().createQuery("from User where personID = :personID");
 				q.setInteger("personID", personID);
 				user=(User) q.uniqueResult();
 				System.out.println("True : Printing status after changing: "+user.isActiveStatus());
-				commit();
-				return result;
+				close();
+				return "false";
 			}
 			else
 			{
 				q=getSession().createQuery("Update User set activeStatus = :status where personID = :personID");
-				q.setInteger("status",1);
+				q.setBoolean("status",true);
 				q.setLong("personID", personID);
 				int result = q.executeUpdate();
-				
+				commit();
 				q=getSession().createQuery("from User where personID = :personID");
 				q.setInteger("personID", personID);
 				user=(User) q.uniqueResult();
 				System.out.println("False : Printing status after changing: "+user.isActiveStatus());
-				commit();
-				return result;
+				close();
+				return "true";
 			}
 			
 		}

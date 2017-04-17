@@ -12,7 +12,7 @@
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-	<a href="${contextPath}/user/">Home</a><br/>
+
 
 	<h2>Add a New Category</h2>
 
