@@ -14,9 +14,12 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <c:if test="${user.role == 'Seller' }">
-<a href="${contextPath}/category/add" >Add Category</a> <br />
-<a href="${contextPath}/advert/add" >Add Advertisement</a> <br />
-<a href="${contextPath}/advert/list" >View All Advertisements</a> <br />
+
+<a href="${contextPath}/seller/product/add.htm" >Add Products</a> <br />
+<a href="${contextPath}/seller/product/view.htm" >View/Update Products</a> <br />
+<input type="hidden" value="${user.personID}" name="personID" />
+
+<a href="${contextPath}/advert/list" >View All Products</a> <br />
 </c:if>
 
 <c:if test="${user.role == 'Customer' }">

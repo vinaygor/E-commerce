@@ -1,7 +1,7 @@
 import java.util.HashSet;
 import java.util.Set;
 
-import com.my.spring.dao.AdvertDAO;
+import com.my.spring.dao.ProductDAO;
 import com.my.spring.dao.CategoryDAO;
 import com.my.spring.dao.UserDAO;
 import com.my.spring.exception.AdvertException;

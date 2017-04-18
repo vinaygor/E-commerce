@@ -14,5 +14,6 @@
 <h1>Welcome Admin</h1>
 <a href="category/add.htm">Add Category for Products</a>
 <a href="view-seller.htm">View Sellers Details</a>
+<a href="category/delete.htm">Delete Category</a>
 </body>
 </html>

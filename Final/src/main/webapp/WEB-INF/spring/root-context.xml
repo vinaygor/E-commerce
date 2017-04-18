@@ -4,6 +4,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="5000000" />
+	</bean>
+	
 	<bean id="userValidator" class="com.my.spring.validator.UserValidator"></bean>
 	<bean id="userDao" class="com.my.spring.dao.UserDAO" ></bean>
 	
@@ -11,7 +17,7 @@
 	<bean id="categoryDao" class="com.my.spring.dao.CategoryDAO" ></bean>
 	
 	<bean id="advertValidator" class="com.my.spring.validator.AdvertValidator"></bean>
-	<bean id="advertDao" class="com.my.spring.dao.AdvertDAO" ></bean>
+	<bean id="productDao" class="com.my.spring.dao.ProductDAO" ></bean>
 
 	<bean id="adminDao" class="com.my.spring.dao.AdminDAO" ></bean>
 </beans>

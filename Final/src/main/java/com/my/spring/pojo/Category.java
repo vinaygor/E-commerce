@@ -58,7 +58,7 @@ public class Category {
 		this.title = title;
 	}
 
-	public Set<Product> getAdverts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 

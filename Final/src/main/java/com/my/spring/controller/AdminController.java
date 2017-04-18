@@ -105,6 +105,30 @@ public class AdminController {
 		return "admin-view-sellers";
 	}
 	
+	@RequestMapping(value="admin/category/deleteCategory.htm", method=RequestMethod.GET)
+	public @ResponseBody String deleteCategory(HttpServletRequest request) throws AdminException, CategoryException{
+	
+		
+		System.out.println("Inside the DeleteCategory function");
+		String title=request.getParameter("title");
+		categoryDAO.delete(categoryDAO.get(title));
+		System.out.println("Deleted the category :");
+		//System.out.println(String.valueOf(userId));
+		return title;
+		
+		//return new ModelAndView("admin-home","null",null);
+//		else
+//			return new ModelAndView("error","null",null);
+	}
+	
+	@RequestMapping(value="/admin/category/delete.htm", method=RequestMethod.GET)
+	public ModelAndView deleteCategory() throws Exception{
+		System.out.println("Inside GET method Admin Controller / delete category");
+		return new ModelAndView("delete-category","category",categoryDAO.list());
+	}
+	
+
+	
 	@RequestMapping(value="/admin/category/add.htm", method=RequestMethod.GET)
 	public ModelAndView createNewCategory() throws Exception{
 		System.out.println("Inside GET method Admin Controller / Categoories");
