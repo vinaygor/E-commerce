@@ -19,7 +19,6 @@
 <a href="${contextPath}/seller/product/view.htm" >View/Update Products</a> <br />
 <input type="hidden" value="${user.personID}" name="personID" />
 
-<a href="${contextPath}/advert/list" >View All Products</a> <br />
 </c:if>
 
 <c:if test="${user.role == 'Customer' }">

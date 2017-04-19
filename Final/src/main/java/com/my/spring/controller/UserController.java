@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.spring.dao.AdminDAO;
+import com.my.spring.dao.ProductDAO;
 import com.my.spring.dao.UserDAO;
 import com.my.spring.exception.UserException;
 import com.my.spring.pojo.Address;
@@ -35,6 +36,9 @@ public class UserController {
 	UserValidator validator;
 	
 	@Autowired
+	ProductDAO productDao;
+	
+	@Autowired
 	AdminDAO adminDao;
 
 	@InitBinder
@@ -52,6 +56,14 @@ public class UserController {
 	@RequestMapping(value = "/user/login.htm", method = RequestMethod.GET)
 	protected String loginUser(HttpServletRequest request) throws Exception{
 		return "login";
+	}
+	
+	@RequestMapping(value = "/user/products.htm", method = RequestMethod.GET)
+	protected ModelAndView viewProducts(HttpServletRequest request) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("products",productDao.list());
+		mv.setViewName("view-product");
+		return mv;
 	}
 	
 	@RequestMapping(value = "/user/login.htm", method = RequestMethod.POST)

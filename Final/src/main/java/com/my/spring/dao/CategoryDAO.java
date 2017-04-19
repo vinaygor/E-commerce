@@ -34,6 +34,8 @@ public class CategoryDAO extends DAO {
             throw new CategoryException("Could not list the categories", e);
         }
     }
+    
+    
 
     public Category create(String title) throws CategoryException {
         try {
