@@ -58,13 +58,7 @@ public class UserController {
 		return "login";
 	}
 	
-	@RequestMapping(value = "/user/products.htm", method = RequestMethod.GET)
-	protected ModelAndView viewProducts(HttpServletRequest request) throws Exception{
-		ModelAndView mv=new ModelAndView();
-		mv.addObject("products",productDao.list());
-		mv.setViewName("view-product");
-		return mv;
-	}
+	
 	
 	@RequestMapping(value = "/user/login.htm", method = RequestMethod.POST)
 	protected String loginUserSuccess(HttpServletRequest request) throws Exception {
@@ -88,9 +82,14 @@ public class UserController {
 			{
 			session.setAttribute("user", u);
 			if(u.getRole().equalsIgnoreCase("Customer"))
-			return "user-home";
+			{
+				session.setAttribute("startPage",0);
+				return "user-home";
+			}
 			else
-			return "seller-home";
+			{
+				return "seller-home";
+			}
 			}
 			else
 			{

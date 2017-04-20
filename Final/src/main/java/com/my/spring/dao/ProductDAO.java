@@ -4,8 +4,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import com.my.spring.exception.AdvertException;
 import com.my.spring.pojo.Product;
@@ -31,7 +36,10 @@ public class ProductDAO extends DAO {
             throws AdvertException {
         try {
             begin();
-            getSession().delete(product);
+            Query q = getSession().createQuery("delete from Product where id=:id");
+            q.setLong("id", product.getId());
+            int r=q.executeUpdate();
+            System.out.println("Rows deleted :"+q);
             commit();
         } catch (HibernateException e) {
             rollback();
@@ -107,5 +115,52 @@ public class ProductDAO extends DAO {
     		rollback();
     		throw new AdvertException("Could Not update product");
     	}
+    }
+    
+    public int getTotalCount(){
+    	
+    	try{
+    		begin();
+    		Query q=getSession().createQuery("from Product");
+    		List<Product> p = q.list();
+    		int sizeTotal = p.size();
+    		commit();
+    		close();
+    		return sizeTotal;
+    		
+    	}
+    	catch(HibernateException e)
+    	{
+    		System.out.println("Could not fetch total size of product list");
+    	}
+		return 0;
+    }
+    
+    public List<Product> listPaginatedProductsUsingCriteria(int firstResult, int maxResults) {
+        
+        try {
+        	begin();
+            Criteria criteria = getSession().createCriteria(Product.class);
+            criteria.setFirstResult(firstResult);
+            criteria.setMaxResults(maxResults);
+            List<Product> products = (List<Product>) criteria.list();
+            commit();
+            close();
+            return products;
+ 
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+		return null; 
+    }
+    
+    private static Criteria getCriteria() {
+        Criteria criteria = getSession().createCriteria(Product.class);
+        criteria.add(Restrictions.isNotNull("productName"));
+        criteria.setProjection(Projections.projectionList()
+                .add(Projections.property("productName"))
+                .add(Projections.property("id")));
+        criteria.addOrder(Order.asc("id"));
+        return criteria;
     }
 }
