@@ -20,4 +20,6 @@
 	<bean id="productDao" class="com.my.spring.dao.ProductDAO" ></bean>
 
 	<bean id="adminDao" class="com.my.spring.dao.AdminDAO" ></bean>
+	<bean id="cartDao" class="com.my.spring.dao.CartDAO" ></bean>
+	
 </beans>

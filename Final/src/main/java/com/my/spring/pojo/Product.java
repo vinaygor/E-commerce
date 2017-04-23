@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -53,6 +54,9 @@ public class Product {
 	
 	@Transient
 	int postedBy;
+	
+	@OneToMany(mappedBy="products")
+	private Set<Cart> cart;
 
     public Product(String title, String description, User user, Category catergory, long price) {
         this.title = title;
@@ -81,6 +85,15 @@ public class Product {
 	}
 
 	
+	
+
+	public Set<Cart> getCart() {
+		return cart;
+	}
+
+	public void setCart(Set<Cart> cart) {
+		this.cart = cart;
+	}
 
 	public String getDescription() {
 		return description;

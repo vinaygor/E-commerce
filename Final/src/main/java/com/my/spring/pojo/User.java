@@ -43,11 +43,17 @@ public class User extends Person {
 	@Column(name="cardDetails")
 	private String cardDetails;
 	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL,orphanRemoval = true)
+	private Set<Cart> cart;
+	
 	public User(String username, String password, String role,String cardDetails) {
 		this.username = username;
 		this.password = password;
 		this.role=role;
-		this.setActiveStatus(false);
+		if(role.equalsIgnoreCase("Customer"))
+			this.setActiveStatus(true);
+		else
+			this.setActiveStatus(false);	
 		this.cardDetails=cardDetails;
 		
 	}
@@ -116,6 +122,15 @@ public class User extends Person {
 	public void setCardDetails(String cardDetails) {
 		this.cardDetails = cardDetails;
 	}
+
+	public Set<Cart> getCart() {
+		return cart;
+	}
+
+	public void setCart(Set<Cart> cart) {
+		this.cart = cart;
+	}
+	
 	
 	
 }

@@ -18,6 +18,7 @@
 		<mapping class="com.my.spring.pojo.Category" />
 		<mapping class="com.my.spring.pojo.Address" />
 		<mapping class="com.my.spring.pojo.Admin" />
+		<mapping class="com.my.spring.pojo.Cart" />
 
 
 	</session-factory>

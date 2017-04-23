@@ -67,4 +67,8 @@ flex-wrap: wrap;
     border: 1px solid #4CAF50;
 }
 
+#cart{
+	align:right;
+}
+
 .pagination a:hover:not(.active) {background-color: #ddd;}

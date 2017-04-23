@@ -22,16 +22,27 @@ $(document).ready(function(){
 	e.preventDefault();
 	var id = $(this).parent().parent().attr('data-pid');
 	var qty = $( "#select-"+id+" option:selected" ).val();
+	var urlPath = 'user/addToCart.htm?id='+id+'&qty='+qty;
+	//alert("Added to cart : Product Id:"+id+", Quantity:"+qty+" URL:"+urlPath);
+	$.ajax({
+		url:urlPath,
+		type:'GET',
+		success:function(){
+			
+		}
 	
-	alert("Added to cart : Product Id:"+id+", Quantity:"+qty);
+	});
+	alert("Added Successfully");
 	
 });
 });
 </script>
 </head>
 <body>
+
 <div id="mainbox">
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="currentUser" value="${sessionScope.user}" />
 
 <c:choose>
             <c:when test="${empty requestScope.products}">
@@ -61,5 +72,7 @@ $(document).ready(function(){
     <a href="${contextPath}/user/products.htm?side=next">&raquo;</a>
   </div>
 </div>
+
+<div><a id="cart" style="float:right;" href="viewCart.htm?id=${currentUser.personID}">Go to Cart</a></div>
 </body>
 </html>

@@ -3,6 +3,8 @@ package com.my.spring.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.my.spring.dao.ProductDAO;
+import com.my.spring.dao.CartDAO;
 import com.my.spring.dao.CategoryDAO;
 import com.my.spring.dao.UserDAO;
 import com.my.spring.exception.AdvertException;
 import com.my.spring.pojo.Product;
+import com.my.spring.pojo.Cart;
 import com.my.spring.pojo.Category;
 import com.my.spring.pojo.User;
 
@@ -35,57 +39,37 @@ public class ProductController {
 		@Qualifier("userDao")
 		UserDAO userDao;
 		
-
-		//@RequestMapping(value = "/seller/product/add.htm", method = RequestMethod.POST)
-		public ModelAndView addCategory(@ModelAttribute("product") Product product, BindingResult result) throws Exception {
-
-			try {			
-				
-//				User u = userDao.get(product.getPostedBy());
-//				product.setUser(u);
-//				product = productDao.create(product);
-//				
-//	            
-//	            for(Category c: product.getCategories()){
-//	            	c = categoryDAO.get(c.getTitle());
-//	            	c.getAdverts().add(product);
-//	            	categoryDAO.update(c);
-//	            }
-				
-				return new ModelAndView("advert-success", "advert", product);
-				
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				return new ModelAndView("error", "errorMessage", "error while creating product");
-			}
-			
-			
-		}
+		@Autowired
+		CartDAO cartDao;
 		
-		//@RequestMapping(value = "/advert/list", method = RequestMethod.GET)
-		public ModelAndView addCategory(HttpServletRequest request) throws Exception {
 
-			try {			
-				
-				List<Product> adverts = productDao.list();
-				return new ModelAndView("advert-list", "adverts", adverts);
-				
-			} catch (AdvertException e) {
-				System.out.println(e.getMessage());
-				return new ModelAndView("error", "errorMessage", "error while login");
-			}
-			
-			
+	@RequestMapping(value="/user/user/addToCart.htm", method = RequestMethod.GET)
+	public boolean insertIntoCart(HttpServletRequest request) throws AdvertException
+	{
+		System.out.println("Hello... I'm inside Add to cart!");
+		HttpSession session = request.getSession();
+		Long productId= Long.parseLong(request.getParameter("id"));
+		int quantity= Integer.parseInt(request.getParameter("qty"));
+		User currentUser = (User)session.getAttribute("user");
+		System.out.println("Inside the Add to cart method. Values :"+productId+" and Qty :"+quantity);
+		
+		System.out.println("Checking if the object has been added to the cart before!");
+		
+		Cart cart= new Cart();
+		cart.setUser(currentUser);
+		cart.setQuantity(quantity);
+		cart.setProduct(productDao.get(productId));
+		boolean isPresent=cartDao.getAProduct(currentUser, productDao.get(productId));
+		if(isPresent==false)
+		{
+		cartDao.insertIntoCart(cart);
+		return true;
 		}
-
-//		@RequestMapping(value="/seller/product/add.htm", method = RequestMethod.GET)
-		public ModelAndView initializeForm(HttpServletRequest request) throws Exception {		
-			ModelAndView mv = new ModelAndView();
-			mv.addObject("categories", categoryDAO.list());			
-			mv.addObject("product", new Product());
-			mv.setViewName("product-form");
-			return mv;
+		else
+		{
+			cartDao.updateCart(cart);
+			return true;
 		}
-
+	}
 
 }
