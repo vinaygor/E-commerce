@@ -19,7 +19,7 @@
 		<mapping class="com.my.spring.pojo.Address" />
 		<mapping class="com.my.spring.pojo.Admin" />
 		<mapping class="com.my.spring.pojo.Cart" />
-
+		<mapping class="com.my.spring.pojo.Order" />
 
 	</session-factory>
 </hibernate-configuration>

@@ -21,5 +21,6 @@
 
 	<bean id="adminDao" class="com.my.spring.dao.AdminDAO" ></bean>
 	<bean id="cartDao" class="com.my.spring.dao.CartDAO" ></bean>
+	<bean id="orderDao" class="com.my.spring.dao.OrderDAO" ></bean>
 	
 </beans>

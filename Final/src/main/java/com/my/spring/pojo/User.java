@@ -46,6 +46,17 @@ public class User extends Person {
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL,orphanRemoval = true)
 	private Set<Cart> cart;
 	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL,orphanRemoval = true)
+	private Set<Order> order;
+	
+	public Set<Order> getOrder() {
+		return order;
+	}
+
+	public void setOrder(Set<Order> order) {
+		this.order = order;
+	}
+
 	public User(String username, String password, String role,String cardDetails) {
 		this.username = username;
 		this.password = password;

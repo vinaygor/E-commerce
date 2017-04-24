@@ -137,5 +137,29 @@ public class CartDAO extends DAO{
 		}
 		
 	}
+	
+	public void removeAllForAUser(User user)
+	{
+		try{
+			begin();
+			System.out.println("Inside the CartDAO removeAllForAUser method");
+			Query q= getSession().createQuery("delete from Cart where user =:user");
+			q.setLong("user", user.getPersonID());
+			q.executeUpdate();
+			System.out.println("All the products has been deleted from the cart for user :"+user.getName());
+			commit();
+			close();
+		}
+		catch(HibernateException e)
+		{
+			rollback();
+			System.out.println("All the products for user "+user.getName()+" could not be Deleted from cart");
+		}
+		
+	}
+	
+	
+	
+	
 
 }

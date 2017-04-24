@@ -148,4 +148,22 @@ public class UserDAO extends DAO {
 			throw new UserException("Could not delete user " + user.getUsername(), e);
 		}
 	}
+	
+	public Address getShippingAddress(long id)
+	{
+		try{
+			begin();
+			Query q = getSession().createQuery("from Address where user= :user and addressType =:addressType");
+			q.setLong("user",id);
+			q.setString("addressType","Shipping");
+			Address address = (Address)q.uniqueResult();
+			close();
+			return address;
+		}
+		catch(HibernateException e)
+		{
+			System.out.println("Could not fetch the details for ");
+		}
+		return null;
+	}
 }

@@ -58,7 +58,10 @@ public class Product {
 	@OneToMany(mappedBy="products")
 	private Set<Cart> cart;
 
-    public Product(String title, String description, User user, Category catergory, long price) {
+	@OneToMany(mappedBy="product")
+	private Set<Order> order;
+	
+	public Product(String title, String description, User user, Category catergory, long price) {
         this.title = title;
         this.description = description;
         this.user = user;      
@@ -151,7 +154,15 @@ public class Product {
 		this.postedBy = postedBy;
 	}
 
-    
+
+    public Set<Order> getOrder() {
+		return order;
+	}
+
+	public void setOrder(Set<Order> order) {
+		this.order = order;
+	}
+
   
 
    

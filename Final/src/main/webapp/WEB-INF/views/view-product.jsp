@@ -73,6 +73,6 @@ $(document).ready(function(){
   </div>
 </div>
 
-<div><a id="cart" style="float:right;" href="viewCart.htm?id=${currentUser.personID}">Go to Cart</a></div>
+<div><a id="cart" style="float:right;" href="viewCart.htm">Go to Cart</a></div>
 </body>
 </html>

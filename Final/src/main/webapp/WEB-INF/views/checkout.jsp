@@ -4,55 +4,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<title>Shopping Cart</title>
+		<title>Checkout</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="../resources/assets/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="../resources/assets/css/custom.css"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-		<script>
-$(document).ready(function(){
-	var total = $('#finalprice').data('id');
-	if(total == 0)
-		$('.order').fadeOut('300');
-    $('.deleteFromCart').click(function(e){
-        e.preventDefault();
-        var answer;
-        var id=$(this).parent().parent().data('id');
-        var urlPath='deleteFromCart.htm?id='+id;
-        var deletedValue = $(this).parent().data('id');
-       	var newTotal = total-deletedValue;
-       	total= newTotal;
-       	var x = $('#finalprice').attr('data-id');
-       	x=newTotal;
-       	$('#finalprice').text('$'+newTotal);
-       	if(total == 0)
-       		$('.order').fadeOut('300');
-        //alert(urlPath);
-        $.ajax({
-            url:urlPath,
-            type:'GET',
-            success:function(response){
-                //alert(response);
-                
-                
-                $('#'+response).fadeOut();
-                
-                
-            }
-            
-        });
-        
-        
-    });
-    
-});
-</script>		
 	</head>
 
 	<body>
-	<form action = "${pageContext.request.contextPath}/user/checkout.htm" method = "post">
+	<form action = "${pageContext.request.contextPath}/user/placeOrder.htm" method = "post">
 		<c:set var="grandTotal" value="${0}" />
 		<nav class="navbar">
 			<div class="container">
@@ -66,8 +28,9 @@ $(document).ready(function(){
 		<div class="container-fluid breadcrumbBox text-center">
 			<ol class="breadcrumb">
 				<li><a href="#">Review</a></li>
-				<li class="active"><a href="#">Order</a></li>
-				<li><a href="#">Payment</a></li>
+				<li ><a href="#">Order</a></li>
+				<li class="active"><a href="#">Payment</a></li>
+				
 			</ol>
 		</div>
 		
@@ -77,7 +40,10 @@ $(document).ready(function(){
 				<div class="bigcart"></div>
 				<h1>Your shopping cart</h1>
 				<p>
-					Check all the products that are added to your cart before you checkout.
+					Your Products will be shipped to following address:
+					<br />${address.streetAddress}
+					<br />${address.city}, ${address.state}
+					<br />${address.country}, ${address.zipCode}
 				</p>
 			</div>
 			
@@ -86,21 +52,22 @@ $(document).ready(function(){
 					<li class="row list-inline columnCaptions">
 						<span>Qty</span>
 						<span>Product Name</span>
-						<span>Price</span>
+						<span>Seller Name</span>
+						
 					</li>
 					<c:forEach var="cartList" items="${cartList}">
-					<li class="row" id="${cartList.product.id}" data-id="${cartList.product.id}">
+					<li class="row">
 						<span class="quantity">${cartList.quantity}</span>
 						<span class="itemName">${cartList.product.title}</span>
-						
-						<span class="price" id="price-${cartList.product.id}" data-id="${cartList.product.price}">$${cartList.product.price*cartList.quantity}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class ="deleteFromCart" href="#"><span class="glyphicon glyphicon-remove"></span></a></span>
+						<span class="price" ">${cartList.product.user.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span></span>
 						<c:set var="grandTotal" value="${grandTotal+(cartList.product.price*cartList.quantity)}" />
 					</li>
 					</c:forEach>
 					<li class="row totals">
 						<span class="itemName">Total:</span>
 						<span class="price" id="finalprice" data-id="${grandTotal}">$${grandTotal}</span>
-						<span class="order"> <input type="submit" class="btn btn-default btn-success" value="CheckOut"/><span class="fa fa-shopping-cart"></span></span>
+						<span class="order"> <input type="submit" class="btn btn-default btn-success" value="Place Order"><span class="fa fa-shopping-cart"></span>&nbsp;</span>
 					</li>
 				</ul>
 			</div>
