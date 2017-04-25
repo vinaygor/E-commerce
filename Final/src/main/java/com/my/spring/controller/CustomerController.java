@@ -116,6 +116,10 @@ public class CustomerController {
 		return String.valueOf(productId);
 	}
 	
+	@RequestMapping(value="/user/checkout.htm", method=RequestMethod.GET)
+	private void goToCheckOutGet(HttpServletRequest request){
+	}
+	
 	@RequestMapping(value="/user/checkout.htm", method=RequestMethod.POST)
 	private ModelAndView goToCheckOut(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
@@ -154,6 +158,10 @@ public class CustomerController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/user/placeOrder.htm", method=RequestMethod.GET)
+	public void getMethod(){
+		
+	}
 
 	@RequestMapping(value="/user/placeOrder.htm", method=RequestMethod.POST)
 	private ModelAndView goToPlaceOrder(HttpServletRequest request){
@@ -212,6 +220,11 @@ public class CustomerController {
 		mv.addObject("address",userDao.getShippingAddress(user.getPersonID()));
 		mv.setViewName("orderConfirmation");
 		return mv;
+	}
+	
+	@RequestMapping(value="/user/order.pdf", method = RequestMethod.GET)
+    public void pdfviewGet(HttpServletRequest request) throws Exception{
+		
 	}
 	
 	@RequestMapping(value="/user/order.pdf", method = RequestMethod.POST)

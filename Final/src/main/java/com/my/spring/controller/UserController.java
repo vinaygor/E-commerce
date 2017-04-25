@@ -214,6 +214,11 @@ System.out.println("I'm inside");
 			return new ModelAndView("error", "errorMessage", "error while login");
 		}
 	}
+	
+//	@RequestMapping(value="/admin/login", method = RequestMethod.GET)
+//	public String goToLogin(){
+//		return "login";
+//	}
 
 
 }

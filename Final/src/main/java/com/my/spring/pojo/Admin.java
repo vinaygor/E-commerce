@@ -22,6 +22,17 @@ public class Admin {
 	@Column(name="admin_password")
 	private String adminPassword;
 	
+	@Column(name="role")
+	private String role;
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public Admin(String username,String password)
 	{
 		this.adminPassword=password;

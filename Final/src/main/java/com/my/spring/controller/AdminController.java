@@ -71,7 +71,7 @@ public class AdminController {
 			List<User> users = adminDao.listOfUsers();
 			System.out.println("Printing the size of users List: "+users.size());
 			session.setAttribute("users", users);
-			
+			session.setAttribute("admin", "admin");
 			return new ModelAndView("admin-home", "users", users);
 			
 		}

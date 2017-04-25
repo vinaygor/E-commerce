@@ -21,6 +21,34 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<interceptors>
+	<interceptor>
+		<mapping path="/user/*"/>
+		<exclude-mapping path="/user/login*"/>
+		<beans:bean class="com.my.spring.interceptor.UserInterceptor">
+		<beans:property name="errorPage" value="" />
+		</beans:bean>
+	</interceptor>
+	
+	<interceptor>
+		<mapping path="/seller/*"/>
+		<mapping path="/seller/*/*" />
+		<exclude-mapping path="/user/login*"/>
+		<beans:bean class="com.my.spring.interceptor.SellerInterceptor">
+		<beans:property name="errorPage" value="" />
+		</beans:bean>
+	</interceptor>
+	
+	<interceptor>
+		<mapping path="/admin/*"/>
+		<mapping path="/admin/*/*" />
+		<exclude-mapping path="/admin/login*"/>
+		<beans:bean class="com.my.spring.interceptor.AdminInterceptor">
+		<beans:property name="errorPage" value="" />
+		</beans:bean>
+	</interceptor>
+		</interceptors>
+	
 	<context:component-scan base-package="com.my.spring.*" />
 	
 	
