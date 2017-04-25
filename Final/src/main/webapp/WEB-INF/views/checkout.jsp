@@ -30,7 +30,7 @@
 				<li><a href="#">Review</a></li>
 				<li ><a href="#">Order</a></li>
 				<li class="active"><a href="#">Payment</a></li>
-				
+				<a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 			</ol>
 		</div>
 		

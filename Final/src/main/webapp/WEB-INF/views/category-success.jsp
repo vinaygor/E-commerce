@@ -10,7 +10,7 @@
     </head>
     <body>
     	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
+<a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 	    <a href="${contextPath}/">Home</a><br/>
     
         <h2>New Category Created Successfully: ${category.title}</h2>

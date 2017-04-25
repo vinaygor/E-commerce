@@ -215,10 +215,5 @@ System.out.println("I'm inside");
 		}
 	}
 	
-//	@RequestMapping(value="/admin/login", method = RequestMethod.GET)
-//	public String goToLogin(){
-//		return "login";
-//	}
-
 
 }

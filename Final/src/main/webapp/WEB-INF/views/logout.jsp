@@ -1,5 +1,3 @@
-<%@page import="org.hibernate.mapping.Value"%>
-<%@page import="com.my.spring.pojo.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -7,14 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Admin Home</title>
 </head>
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
-<h1>Welcome Admin</h1>
-<a href="category/add.htm">Add Category for Products</a>
-<a href="view-seller.htm">View Sellers Details</a>
-<a href="category/delete.htm">Delete Category</a>
+<form action="${contextPath}/logout.htm" method="POST">
+<input style="float:right;" type="submit" name="logout" value="Logout" />
+<input type="hidden" name="logout" value="logout">
+</form>
 </body>
 </html>

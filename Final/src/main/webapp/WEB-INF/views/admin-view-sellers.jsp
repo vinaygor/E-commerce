@@ -44,6 +44,7 @@ $(document).ready(function(){
 </head>
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 <h1>Welcome Admin</h1>
 <a href ="${contextPath}/admin/dashboard.htm">Dashboard</a>
 <h3>List of Sellers</h3>

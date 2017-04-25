@@ -14,6 +14,8 @@
 	</head>
 
 	<body>
+	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 	<form action = "${pageContext.request.contextPath}/user/order.pdf" method = "POST">
 		<c:set var="grandTotal" value="${0}" />
 		<nav class="navbar">
@@ -30,6 +32,7 @@
 				<li class="active"><a href="#">Order Placed Successfully</a></li>
 				<li class="active"><a href="#">Sales Order ID:</a></li>
 				<li class="active"><a href="#">- ${requestScope.salesOrder}</a></li>
+				<a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 			</ol>
 		</div>
 		

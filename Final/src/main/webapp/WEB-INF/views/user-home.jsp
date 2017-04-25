@@ -8,10 +8,11 @@
 <title>User Home</title>
 </head>
 <body>
-
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 <h1>Hi, ${user.name}</h1>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 
 <c:if test="${user.role == 'Customer' }">
 <a href="${contextPath}/user/products.htm" >View All Products</a> <br />

@@ -164,5 +164,20 @@ public class AdminController {
 		return "admin-home";
 	}
 	
+	@RequestMapping(value="/logout.htm", method = RequestMethod.GET)
+	public String goToLoginPage(HttpServletRequest req){
+		HttpSession session = req.getSession();
+		session.invalidate();
+		return "login";
+	}
+	
+	@RequestMapping(value="/logout.htm", method = RequestMethod.POST)
+	public String goToLogin(HttpServletRequest req){
+		HttpSession session = req.getSession();
+		session.invalidate();
+		return "login";
+	}
+
+	
 }
 	

@@ -11,7 +11,7 @@
 
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
+<a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 	<a href ="${contextPath}/admin/dashboard.htm">Dashboard</a>
 
 	<h2>Add a New Category</h2>

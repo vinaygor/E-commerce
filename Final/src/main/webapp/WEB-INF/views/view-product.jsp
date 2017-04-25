@@ -39,9 +39,10 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
-<div id="mainbox">
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
+<div id="mainbox">
+
 <c:set var="currentUser" value="${sessionScope.user}" />
 
 <c:choose>

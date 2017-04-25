@@ -52,6 +52,7 @@ $(document).ready(function(){
 	</head>
 
 	<body>
+	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 	<form action = "${pageContext.request.contextPath}/user/checkout.htm" method = "post">
 		<c:set var="grandTotal" value="${0}" />
 		<nav class="navbar">
@@ -68,7 +69,9 @@ $(document).ready(function(){
 				<li><a href="#">Review</a></li>
 				<li class="active"><a href="#">Order</a></li>
 				<li><a href="#">Payment</a></li>
+				<a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 			</ol>
+			
 		</div>
 		
 		<div class="container text-center">
