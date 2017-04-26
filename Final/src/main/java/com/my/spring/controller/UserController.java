@@ -1,6 +1,7 @@
 package com.my.spring.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import com.my.spring.dao.ProductDAO;
 import com.my.spring.dao.UserDAO;
 import com.my.spring.exception.UserException;
 import com.my.spring.pojo.Address;
+import com.my.spring.pojo.Product;
 import com.my.spring.pojo.User;
 import com.my.spring.validator.UserValidator;
 
@@ -83,6 +85,8 @@ public class UserController {
 			session.setAttribute("user", u);
 			if(u.getRole().equalsIgnoreCase("Customer"))
 			{
+				List<Product> list = productDao.list();
+				session.setAttribute("productList", list);
 				session.setAttribute("startPage",0);
 				return "user-home";
 			}

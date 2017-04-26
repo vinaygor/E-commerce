@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>User Home</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -14,9 +15,12 @@
 
 
 
-<c:if test="${user.role == 'Customer' }">
+
 <a href="${contextPath}/user/products.htm" >View All Products</a> <br />
-</c:if>
+<br />
+
+<a href="${contextPath}/user/searchproducts.htm" >Search Products</a> <br />
+<br />
 
 </body>
 </html>

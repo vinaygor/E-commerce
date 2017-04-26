@@ -6,13 +6,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.SimpleEmail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +30,7 @@ import com.my.spring.dao.UserDAO;
 import com.my.spring.pojo.Address;
 import com.my.spring.pojo.Cart;
 import com.my.spring.pojo.Order;
+import com.my.spring.pojo.Product;
 import com.my.spring.pojo.User;
 
 @Controller
@@ -251,5 +255,28 @@ public class CustomerController {
         return mv;
         //return new ModelAndView(view,"list",list);
     }
+	
+	@RequestMapping(value="/user/getProductList.htm", method=RequestMethod.GET, produces = MediaType.ALL_VALUE)
+	public @ResponseBody String getProductListKeyword(HttpServletRequest request,HttpServletResponse response)
+	{
+		String keyword = request.getParameter("val");
+		System.out.println("Inside the Controller of getProductList() method");
+		List<Product> productList = productDao.getProductList(keyword);
+		HttpSession session = request.getSession();
+		session.setAttribute("productList",productList);
+		session.setAttribute("size",productList.size());
+		return String.valueOf(productList.size());
+		
+		
+	}
+	
+	@RequestMapping(value="/user/searchproducts.htm", method=RequestMethod.GET)
+	public String searchProducts(HttpServletRequest request)
+	{
+		return "search-product";
+	}
+	{
+		
+	}
 	
 }

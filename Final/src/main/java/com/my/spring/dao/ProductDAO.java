@@ -8,6 +8,8 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -162,5 +164,28 @@ public class ProductDAO extends DAO {
                 .add(Projections.property("id")));
         criteria.addOrder(Order.asc("id"));
         return criteria;
+    }
+    
+    public List<Product> getProductList(String keyword){
+    	try{
+    		begin();
+    		Criteria c = getSession().createCriteria(Product.class);
+    		Criterion cr1 = Restrictions.ilike("description", "%"+keyword+"%");
+    		Criterion cr2 = Restrictions.ilike("title", "%"+keyword+"%");
+    		
+    		LogicalExpression or = Restrictions.or(cr1,cr2);
+    		c.add(or);
+    		List<Product> list = c.list();
+    		System.out.println("The size of the list with keywords is :"+list.size());
+    		close();
+    		return list;
+    	}
+    	catch(HibernateException e)
+    	{
+    		rollback();
+    		System.out.println("Could not fetch list by applying restrictions to it.");
+    		
+    	}
+    	return null;
     }
 }
