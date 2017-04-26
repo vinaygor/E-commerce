@@ -16,15 +16,13 @@
 
 <c:if test="${user.role == 'Seller' }">
 
-<a href="${contextPath}/seller/product/add.htm" >Add Products</a> <br />
-<a href="${contextPath}/seller/product/view.htm" >View/Update Products</a> <br />
+<a href="${contextPath}/seller/product/add.htm" >Add Products</a> <br /><br />
+<a href="${contextPath}/seller/product/view.htm" >View/Update Products</a> <br /><br />
+<a href="${contextPath}/seller/vieworders.htm" >View Orders Placed by Customers</a> <br /><br />
 <input type="hidden" value="${user.personID}" name="personID" />
 
 </c:if>
 
-<c:if test="${user.role == 'Customer' }">
-<a href="${contextPath}/advert/list" >View All Advertisements</a> <br />
-</c:if>
 
 </body>
 </html>

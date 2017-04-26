@@ -30,7 +30,7 @@
 		</tr>
 				
 		</table>
-		<c:if test="${errorMessage==true }">
+		<c:if test="${sessionScope.errorMessage==true }">
 		<p style="color:red">Username/Password combination does not match</p>
 		</c:if>
 

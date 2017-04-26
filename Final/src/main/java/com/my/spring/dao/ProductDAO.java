@@ -188,4 +188,29 @@ public class ProductDAO extends DAO {
     	}
     	return null;
     }
+    
+    
+    public List<Product> getProductListOrder(String keyword){
+    	try{
+    		begin();
+    		Criteria c = getSession().createCriteria(Product.class);
+    		if(keyword.equalsIgnoreCase("asc"))
+    			c.addOrder(Order.asc("price"));
+    		else
+    			c.addOrder(Order.desc("price"));
+    		
+    		List<Product> list = c.list();
+    		System.out.println("The size of the list with Ordered price is :"+list.size());
+    		close();
+    		return list;
+    	}
+    	catch(HibernateException e)
+    	{
+    		rollback();
+    		System.out.println("Could not fetch list by applying ordering restrictions to it.");
+    		
+    	}
+    	return null;
+    }
+    
 }

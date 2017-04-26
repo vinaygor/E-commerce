@@ -10,7 +10,6 @@
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <a href="${contextPath}/">Home</a><br/>
-<%session.invalidate(); %>
 	<h2>Login</h2>
 	<form action="${contextPath}/user/login.htm" method="post">
 	
@@ -30,9 +29,14 @@
 		</tr>
 				
 		</table>
-
+<c:if test="${errorMessage==true }">
+		<p style="color:red">Username/Password combination does not match</p>
+		</c:if>
+	<c:if test="${autherror==true }">
+		<p style="color:red">Your account is not active. Please contact admin.</p>
+		</c:if>
 	</form>
-
+	
 
 </body>
 </html>

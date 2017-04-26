@@ -124,5 +124,37 @@ public class OrderDAO extends DAO{
 		return false;
 	}
 	
+	public List<Order> orderlist(long userId) {
+	       try {
+	           begin();
+	           Query q = getSession().createQuery("from Order where user = :userId");
+	           q.setLong("userId", userId);
+	           List<Order> list = q.list();
+	           commit();
+	           close();
+	           return list;
+	       } catch (HibernateException e) {
+	           rollback();
+	           System.out.println("Could not get the list of order for a particular user");
+	       }
+	       return null;
+	   }
+	
+	public List<Order> sellerOrderList(String username){
+		try{
+			begin();
+			Query q = getSession().createQuery("from Order where sellerName =:username");
+			q.setString("username", username);
+			List<Order> list = q.list();
+			close();
+			return list;
+			}
+		catch(HibernateException e)
+		{
+			
+		}
+		return null;
+	}
+	
 	
 }

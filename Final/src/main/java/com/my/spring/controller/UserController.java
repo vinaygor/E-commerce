@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.spring.dao.AdminDAO;
+import com.my.spring.dao.OrderDAO;
 import com.my.spring.dao.ProductDAO;
 import com.my.spring.dao.UserDAO;
 import com.my.spring.exception.UserException;
 import com.my.spring.pojo.Address;
+import com.my.spring.pojo.Order;
 import com.my.spring.pojo.Product;
 import com.my.spring.pojo.User;
 import com.my.spring.validator.UserValidator;
@@ -42,6 +44,9 @@ public class UserController {
 	
 	@Autowired
 	AdminDAO adminDao;
+	
+	@Autowired
+	OrderDAO orderDao;
 
 	@InitBinder
 	private void initBinder(WebDataBinder binder) {
@@ -63,7 +68,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/user/login.htm", method = RequestMethod.POST)
-	protected String loginUserSuccess(HttpServletRequest request) throws Exception {
+	protected ModelAndView loginUserSuccess(HttpServletRequest request) throws Exception {
 
 		HttpSession session = (HttpSession) request.getSession();
 		
@@ -76,8 +81,9 @@ public class UserController {
 			
 			if(u == null){
 				System.out.println("UserName/Password does not exist");
-				session.setAttribute("errorMessage", "UserName/Password does not exist");
-				return "error";
+				//session.setAttribute("errorMessage", true);
+				//request.setAttribute("errorMessage", true);
+				return new ModelAndView("login","errorMessage", true);
 			}
 			
 			if(u.isActiveStatus())
@@ -88,23 +94,24 @@ public class UserController {
 				List<Product> list = productDao.list();
 				session.setAttribute("productList", list);
 				session.setAttribute("startPage",0);
-				return "user-home";
+				return new ModelAndView("user-home");
 			}
 			else
 			{
-				return "seller-home";
+				return new ModelAndView("seller-home");
 			}
 			}
 			else
 			{
-				session.setAttribute("errorMessage", "Your Account is inactive. Please contact admin.");
-				return "error";
+				//session.setAttribute("autherror", true);
+				//request.setAttribute("autherror", true);
+				return new ModelAndView("login","autherror", true);
 			}
 
 		} catch (UserException e) {
 			System.out.println("Exception: " + e.getMessage());
 			session.setAttribute("errorMessage", "error while login");
-			return "error";
+			return new ModelAndView("error","errorMessage", "error while login");
 		}
 
 	}
@@ -219,5 +226,6 @@ System.out.println("I'm inside");
 		}
 	}
 	
+
 
 }

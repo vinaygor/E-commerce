@@ -20,10 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.my.spring.dao.AdminDAO;
 import com.my.spring.dao.CategoryDAO;
+import com.my.spring.dao.OrderDAO;
 import com.my.spring.exception.AdminException;
 import com.my.spring.exception.CategoryException;
 import com.my.spring.pojo.Admin;
 import com.my.spring.pojo.Category;
+import com.my.spring.pojo.Order;
 import com.my.spring.pojo.User;
 import com.my.spring.validator.CategoryValidator;
 
@@ -40,6 +42,9 @@ public class AdminController {
 	@Autowired
 	@Qualifier("categoryDao")
 	CategoryDAO categoryDAO;
+	
+	@Autowired
+	OrderDAO orderDao;
 
 	static int i=0;
 	@RequestMapping(value="admin/login.htm", method=RequestMethod.GET)
@@ -177,6 +182,18 @@ public class AdminController {
 		session.invalidate();
 		return "login";
 	}
+	
+	@RequestMapping(value="/seller/vieworders.htm", method=RequestMethod.GET)
+	public ModelAndView getOrderForSeller(HttpServletRequest request)
+	{
+		HttpSession session = request.getSession();
+		User user=(User)session.getAttribute("user");
+		String sellerName=user.getName();
+		List<Order> list = orderDao.sellerOrderList(sellerName);
+		System.out.println("Size of list for user :"+sellerName+" is - "+list.size());
+		return new ModelAndView("view-order-sellers","list",list);
+	}
+	
 
 	
 }

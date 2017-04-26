@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="${contextPath}/">Home</a><br/>
+<a href="${contextPath}/final">Home</a><br/>
 <h1>Error Page</h1>
 
 <p>${errorMessage}</p>

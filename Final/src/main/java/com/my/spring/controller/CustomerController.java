@@ -2,8 +2,10 @@ package com.my.spring.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.print.attribute.standard.Media;
@@ -270,13 +272,50 @@ public class CustomerController {
 		
 	}
 	
+	@RequestMapping(value="/user/getProductListOrder.htm", method=RequestMethod.GET, produces = MediaType.ALL_VALUE)
+	public @ResponseBody String getProductListOrder(HttpServletRequest request,HttpServletResponse response)
+	{
+		String keyword = request.getParameter("order");
+		System.out.println("Inside the Controller of getProductListOrder() method");
+		List<Product> productList = productDao.getProductListOrder(keyword);
+		HttpSession session = request.getSession();
+		session.setAttribute("productList",productList);
+		session.setAttribute("size",productList.size());
+		return String.valueOf(productList.size());
+		
+		
+	}
+	
 	@RequestMapping(value="/user/searchproducts.htm", method=RequestMethod.GET)
 	public String searchProducts(HttpServletRequest request)
 	{
 		return "search-product";
 	}
-	{
-		
-	}
 	
+	@RequestMapping(value="/user/vieworders.htm", method=RequestMethod.GET)
+	public ModelAndView viewMyOrders(HttpServletRequest request)
+	{
+	        User user = (User)request.getSession().getAttribute("user");
+	        Long uid = user.getPersonID();
+	        System.out.println(uid);
+	        List<Order> orders = orderDao.orderlist(uid);
+	        
+	        HashMap <String, ArrayList<Order>> hashmap = new HashMap<String, ArrayList<Order>>();
+	        for(Order o: orders) {
+	            ArrayList<Order> orderList = hashmap.get(o.getOrderid());
+	            
+	            if(orderList == null) {
+	                orderList = new ArrayList<Order>();
+	                orderList.add(o);
+	                hashmap.put(o.getOrderid(), orderList);
+	            } else {
+	                orderList.add(o);
+	            }
+	        }
+	        
+	        return new ModelAndView("view-orders", "hashmap", hashmap);
+	    }
 }
+	
+	
+

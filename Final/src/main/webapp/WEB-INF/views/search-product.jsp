@@ -20,7 +20,10 @@
 <br />
 <form>
 <H3>Input your search string below:</H3>
-<input type ="text" maxlength="4" name="search_box" id="search_box" placeholder="Keywords,Product Name" />
+<input type ="text" maxlength="4" name="search_box" id="search_box" placeholder="Keywords,Product Name" /> &nbsp;&nbsp;&nbsp;&nbsp;<select id="dropdown">
+  <option value="asc">Low to High</option>
+  <option value="desc">High to Low</option>
+</select>
 <br />
 </form>
 <br />
@@ -69,6 +72,30 @@ $("#search_box").keyup(function(){
 			
 		});
 		}
+});
+</script>
+
+<script>
+$("#dropdown").change(function () {
+	var pick = $('#dropdown option:selected').val();
+	//$('#result').text(pick);
+	var urlPath="getProductListOrder.htm?order="+pick;
+	$.ajax({
+		url:urlPath,
+		type:'GET',
+		success:function(response){
+			//alert(response);
+			//$('#result').text(response);
+			//$('#result').load(window.location.href + '#result');
+			if(response=='0')
+				$('#result').text("No products found");
+			else
+				$("#result").load(location.href + " #result>*", "");
+			
+		}
+		
+	});
+	
 });
 </script>
 

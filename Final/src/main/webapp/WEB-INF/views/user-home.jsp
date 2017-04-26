@@ -22,5 +22,7 @@
 <a href="${contextPath}/user/searchproducts.htm" >Search Products</a> <br />
 <br />
 
+<a href="${contextPath}/user/vieworders.htm" >My Orders</a> <br />
+<br />
 </body>
 </html>
