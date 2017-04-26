@@ -124,11 +124,12 @@ public class OrderDAO extends DAO{
 		return false;
 	}
 	
-	public List<Order> orderlist(long userId) {
+	public List<Order> orderlist(long userId, boolean status) {
 	       try {
 	           begin();
-	           Query q = getSession().createQuery("from Order where user = :userId");
+	           Query q = getSession().createQuery("from Order where user = :userId and completed =:completed");
 	           q.setLong("userId", userId);
+	           q.setBoolean("completed", status);
 	           List<Order> list = q.list();
 	           commit();
 	           close();
@@ -140,11 +141,12 @@ public class OrderDAO extends DAO{
 	       return null;
 	   }
 	
-	public List<Order> sellerOrderList(String username){
+	public List<Order> sellerOrderList(String username,boolean status){
 		try{
 			begin();
-			Query q = getSession().createQuery("from Order where sellerName =:username");
+			Query q = getSession().createQuery("from Order where sellerName =:username and completed =:status");
 			q.setString("username", username);
+			q.setBoolean("status", status);
 			List<Order> list = q.list();
 			close();
 			return list;

@@ -12,7 +12,8 @@
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 	<a href="${contextPath}/seller/seller-home">Home</a><br/>
+	<a href="${contextPath}/seller/product/add.htm">Add More</a><br/>
 
-	<h2>Product has been added successfully: ${advert.title}</h2>
+	<h2>Product has been added successfully.</h2>
 </body>
 </html>

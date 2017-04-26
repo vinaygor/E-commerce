@@ -16,13 +16,13 @@
 	<h2>Registration new seller</h2>
 
 	<form:form action="${contextPath}/user/seller_register.htm" commandName="user"
-		method="post">
+		method="post" data-toggle="validator">
 
 		<table>
 
 			<tr>
 				<td>Company Name:</td>
-				<td><form:input path="name" size="30" required="required" />
+				<td><form:input path="name" size="30" required="required" pattern="[a-zA-z ]{1,}"/>
 					<font color="red"><form:errors path="name" /></font></td>
 			</tr>
 						<tr>
@@ -33,31 +33,31 @@
 			
 						<tr>
 				<td>Street Address:</td>
-				<td><form:input path="address[0].streetAddress" size="30" required="required" />
+				<td><form:input path="address[0].streetAddress" size="30" required="required" pattern="[a-zA-z0-9, ]{1,}"/>
 					<font color="red"><form:errors path="address[0].streetAddress" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>City:</td>
-				<td><form:input path="address[0].city" size="30" required="required" />
+				<td><form:input path="address[0].city" size="30" required="required" pattern="[a-zA-z0-9 ]{1,}"/>
 					<font color="red"><form:errors path="address[0].city" /></font></td>
 			</tr>
 
 			<tr>
 				<td>State:</td>
-				<td><form:input path="address[0].state" size="30" required="required" />
+				<td><form:input path="address[0].state" size="30" required="required" pattern="[a-zA-z0-9 ]{1,}"/>
 					<font color="red"><form:errors path="address[0].state" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>Country:</td>
-				<td><form:input path="address[0].country" size="30" required="required" />
+				<td><form:input path="address[0].country" size="30" required="required" pattern="[a-zA-z0-9 ]{1,}" />
 					<font color="red"><form:errors path="address[0].country" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>Zip code:</td>
-				<td><form:input path="address[0].zipCode" size="30" required="required" />
+				<td><form:input path="address[0].zipCode" size="30" required="required" pattern="[0-9]{5,5}"/>
 					<font color="red"><form:errors path="address[0].zipCode" /></font></td>
 			</tr>
 						
@@ -70,7 +70,7 @@
 			<tr>
 				<td>Email Id:</td>
 				<td><form:input path="email.emailAddress" size="30"
-						type="email" required="required" /> <font color="red"><form:errors
+						type="email" required="required" pattern="[a-zA-z0-9@.]{6,}" /> <font color="red"><form:errors
 							path="email.emailAddress" /></font>
 							<c:if test="${emailflag ==true || both ==true}">
 		<span style="color:red;">Email already exist. Please choose a different email account.</span>
@@ -81,14 +81,14 @@
 			<tr>
 				<td>Card Details:</td>
 				<td><form:input path="cardDetails" size="30"
-						 required="required" /> <font color="red"><form:errors
+						 required="required" pattern="[0-9]{16,16}"/> <font color="red"><form:errors
 							path="cardDetails" /></font></td>
 			</tr>
 						
 
 			<tr>
 				<td>User Name:</td>
-				<td><form:input path="username" size="30" required="required" />
+				<td><form:input path="username" size="30" required="required" pattern="[a-zA-z0-9]{6,}"/>
 					<font color="red"><form:errors path="username" /></font>
 					<c:if test="${flag ==true || both ==true}">
 		<span style="color:red;">User name already exist. Please choose a different username.</span>
@@ -99,7 +99,7 @@
 			<tr>
 				<td>Password:</td>
 				<td><form:password path="password" size="30"
-						required="required" /> <font color="red"><form:errors
+						required="required" pattern="[a-zA-z0-9@]{6,}"/> <font color="red"><form:errors
 							path="password" /></font></td>
 			</tr>
 

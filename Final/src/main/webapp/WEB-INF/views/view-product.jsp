@@ -41,6 +41,15 @@ $(document).ready(function(){
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
+
+
+
+<a href="${contextPath}/user/products.htm" >View All Products</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="${contextPath}/user/searchproducts.htm" >Search Products</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="${contextPath}/user/vieworders.htm" >My Orders</a> <br />
+
 <div id="mainbox">
 
 <c:set var="currentUser" value="${sessionScope.user}" />
@@ -69,8 +78,8 @@ $(document).ready(function(){
 </div>
 <div class="center">
   <div class="pagination">
-    <a href="${contextPath}/user/products.htm?side=back">&laquo;</a>
-    <a href="${contextPath}/user/products.htm?side=next">&raquo;</a>
+    <a href="${contextPath}/user/products.htm?side=back">&laquo;Back</a>
+    <a href="${contextPath}/user/products.htm?side=next">Next&raquo;</a>
   </div>
 </div>
 

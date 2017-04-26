@@ -176,6 +176,9 @@ public class UserController {
 
 	}
 	
+	@RequestMapping(value = "/user/seller_register.htm", method = RequestMethod.GET)
+	public void getMethod(){}
+	
 	@RequestMapping(value = "/user/seller_register.htm", method = RequestMethod.POST)
 	protected ModelAndView registerNewSeller(HttpServletRequest request,  @ModelAttribute("user") User user, BindingResult result) throws Exception {
 System.out.println("I'm inside");

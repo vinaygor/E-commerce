@@ -66,6 +66,7 @@ $(document).ready(function(){
 		
 		<div class="container-fluid breadcrumbBox text-center">
 			<ol class="breadcrumb">
+				<a style="float:left;" href="${contextPath}/user/products.htm" class="btn btn-default btn-success">Back</a>
 				<li><a href="#">Review</a></li>
 				<li class="active"><a href="#">Order</a></li>
 				<li><a href="#">Payment</a></li>

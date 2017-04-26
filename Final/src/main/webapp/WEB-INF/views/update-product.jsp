@@ -15,7 +15,7 @@
 	<h2>Update a product</h2>
 
 
-	<form:form method="post" commandName="product" action="${contextPath}/seller/product/update.htm" enctype="multipart/form-data">
+	<form:form method="post" commandName="product" action="${contextPath}/seller/product/update.htm" enctype="multipart/form-data" data-toggle="validator">
 
 		<c:out value="${product.title}"></c:out>
 		<table>
@@ -40,12 +40,12 @@
 
 			<tr>
 				<td>Decription:</td>
-				<td><form:input type="text" path="description" size="30" required="required" value="${product.description}"/></td>
+				<td><form:input type="text" path="description" size="30" required="required" value="${product.description}" pattern="[a-zA-z0-9,. ]{1,}"/></td>
 			</tr>
 
 			<tr>
 				<td>Price:</td>
-				<td><form:input type="number" path="price" size="30" required="required" value="${product.price}"/></td>
+				<td><form:input type="number" path="price" size="30" required="required" value="${product.price}" pattern="[0-9]{1,}"/></td>
 			</tr>
 			
 			<tr>

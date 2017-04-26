@@ -14,6 +14,11 @@
 	</head>
 
 	<body>
+	<%
+           response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //HTTP 1.1
+           response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+           response.setDateHeader("Expires", 0); //prevents caching at the proxy server
+     %>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 	<form action = "${pageContext.request.contextPath}/user/order.pdf" method = "POST">
@@ -29,6 +34,7 @@
 		
 		<div class="container-fluid breadcrumbBox text-center">
 			<ol class="breadcrumb">
+			<a style="float:left;" href="${contextPath}/user/products.htm" class="btn btn-default btn-success">Products Home</a>
 				<li class="active"><a href="#">Order Placed Successfully</a></li>
 				<li class="active"><a href="#">Sales Order ID:</a></li>
 				<li class="active"><a href="#">- ${requestScope.salesOrder}</a></li>

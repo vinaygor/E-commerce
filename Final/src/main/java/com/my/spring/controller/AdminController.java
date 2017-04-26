@@ -1,6 +1,8 @@
 package com.my.spring.controller;
 
 import java.lang.invoke.MethodType;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -154,10 +156,10 @@ public class AdminController {
 			if(checkCat==null)
  			category = categoryDAO.create(category.getTitle());
 			else
-				return new ModelAndView("error", "errorMessage", "Category Name already present. Try a different name"); 
+				return new ModelAndView("error", "errormessage", "Category Name already present. Try a different name"); 
 		} catch (CategoryException e) {
 			System.out.println(e.getMessage());
-			return new ModelAndView("category-form", "errorMessage", "Could not create a new Category");
+			return new ModelAndView("category-form", "errormessage", "Could not create a new Category");
 		}
 		return new ModelAndView("category-form", "message", "New Category "+category.getTitle()+" has been created!");
 		
@@ -189,9 +191,39 @@ public class AdminController {
 		HttpSession session = request.getSession();
 		User user=(User)session.getAttribute("user");
 		String sellerName=user.getName();
-		List<Order> list = orderDao.sellerOrderList(sellerName);
-		System.out.println("Size of list for user :"+sellerName+" is - "+list.size());
-		return new ModelAndView("view-order-sellers","list",list);
+		List<Order> orders = orderDao.sellerOrderList(sellerName,true);
+		
+		 HashMap <String, ArrayList<Order>> hashmap = new HashMap<String, ArrayList<Order>>();
+	        for(Order o: orders) {
+	            ArrayList<Order> orderList = hashmap.get(o.getOrderid());
+	            
+	            if(orderList == null) {
+	                orderList = new ArrayList<Order>();
+	                orderList.add(o);
+	                hashmap.put(o.getOrderid(), orderList);
+	            } else {
+	                orderList.add(o);
+	            }
+	        }
+		
+		List<Order> pendingList = orderDao.sellerOrderList(sellerName,false);
+		
+		 HashMap <String, ArrayList<Order>> pendingHashmap = new HashMap<String, ArrayList<Order>>();
+	        for(Order o: pendingList) {
+	            ArrayList<Order> orderList = pendingHashmap.get(o.getOrderid());
+	            
+	            if(orderList == null) {
+	                orderList = new ArrayList<Order>();
+	                orderList.add(o);
+	                pendingHashmap.put(o.getOrderid(), orderList);
+	            } else {
+	                orderList.add(o);
+	            }
+	        }
+		System.out.println("Size of list for user :"+sellerName+" is - "+orders.size());
+		request.setAttribute("hashmap", hashmap);
+		
+		return new ModelAndView("view-order-sellers","pendingHashmap",pendingHashmap);
 	}
 	
 

@@ -191,7 +191,7 @@ public class CustomerController {
 				order.setUser(cart.getUser());
 				order.setSellerName(cart.getProduct().getUser().getName());
 				order.setDateTime(Calendar.getInstance());
-				order.setCompleted(true);
+				order.setCompleted(false);
 				orderDao.insertIntoOrder(order);
 			}
 		}
@@ -298,7 +298,7 @@ public class CustomerController {
 	        User user = (User)request.getSession().getAttribute("user");
 	        Long uid = user.getPersonID();
 	        System.out.println(uid);
-	        List<Order> orders = orderDao.orderlist(uid);
+	        List<Order> orders = orderDao.orderlist(uid,true);
 	        
 	        HashMap <String, ArrayList<Order>> hashmap = new HashMap<String, ArrayList<Order>>();
 	        for(Order o: orders) {
@@ -313,6 +313,21 @@ public class CustomerController {
 	            }
 	        }
 	        
+	        List<Order> pendingOrders = orderDao.orderlist(uid,false);
+	        
+	        HashMap <String, ArrayList<Order>> pendingHashmap = new HashMap<String, ArrayList<Order>>();
+	        for(Order o: pendingOrders) {
+	            ArrayList<Order> orderList = pendingHashmap.get(o.getOrderid());
+	            
+	            if(orderList == null) {
+	                orderList = new ArrayList<Order>();
+	                orderList.add(o);
+	                pendingHashmap.put(o.getOrderid(), orderList);
+	            } else {
+	                orderList.add(o);
+	            }
+	        }
+	        request.setAttribute("pendingHashmap", pendingHashmap);
 	        return new ModelAndView("view-orders", "hashmap", hashmap);
 	    }
 }

@@ -13,8 +13,8 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <a style="float:right;" href="${contextPath}/logout.htm" class="btn btn-default btn-success">Logout</a>
 <h1>Welcome Admin</h1>
-<a href="category/add.htm">Add Category for Products</a>
-<a href="view-seller.htm">View Sellers Details</a>
-<a href="category/delete.htm">Delete Category</a>
+<a href="category/add.htm">Add Category for Products</a><br /><br />
+<a href="view-seller.htm">View Sellers Details</a><br /><br />
+<a href="category/delete.htm">Delete Category</a><br /><br />
 </body>
 </html>

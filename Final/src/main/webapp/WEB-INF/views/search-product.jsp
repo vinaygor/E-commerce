@@ -15,8 +15,12 @@
 
 
 
+<a href="${contextPath}/user/products.htm" >View All Products</a>&nbsp;&nbsp;&nbsp;&nbsp;
 
-<a href="${contextPath}/user/products.htm" >View All Products</a> <br />
+<a href="${contextPath}/user/searchproducts.htm" >Search Products</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="${contextPath}/user/vieworders.htm" >My Orders</a> <br />
+
 <br />
 <form>
 <H3>Input your search string below:</H3>

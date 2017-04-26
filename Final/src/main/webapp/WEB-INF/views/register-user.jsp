@@ -7,11 +7,7 @@
 <head>
 <title>Add User Form</title>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -28,7 +24,7 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 
 			<tr>
 				<td>Full Name:</td>
-				<td><form:input path="name" size="30" required="required" />
+				<td><form:input path="name" size="30" required="required" pattern="[a-zA-z ]+" placeholder="Characters only" />
 					<font color="red"><form:errors path="name" /></font></td>
 			</tr>
 			
@@ -41,7 +37,7 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 			
 			<tr>
 				<td>Email Id:</td>
-				<td><form:input path="email.emailAddress" size="30"
+				<td><form:input path="email.emailAddress" size="30" pattern="[a-zA-z0-9@.]+"
 						type="email" required="required" /> <font color="red"><form:errors
 							path="email.emailAddress" /></font></td>
 			</tr>
@@ -49,14 +45,14 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 			<tr>
 				<td>Card Details:</td>
 				<td><form:input path="cardDetails" size="30"
-						 required="required" /> <font color="red"><form:errors
+						 required="required" pattern="[0-9]{16,16}"/> <font color="red"><form:errors
 							path="cardDetails" /></font></td>
 			</tr>
 						
 
 			<tr>
 				<td>User Name:</td>
-				<td><form:input path="username" size="30" required="required" />
+				<td><form:input path="username" size="30" required="required" pattern="[_A-z0-9]{6,}" />
 					<font color="red"><form:errors path="username" /></font>
 					<c:if test="${flag ==true}">
 		<span style="color:red;">User name already exist. Please choose a different username.</span>
@@ -67,7 +63,7 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 			<tr>
 				<td>Password:</td>
 				<td><form:password path="password" size="30"
-						required="required" /> <font color="red"><form:errors
+						required="required" pattern="[A-z0-9@_!$]{6,}$"/> <font color="red"><form:errors
 							path="password" /></font></td>
 			</tr>
 
@@ -79,31 +75,31 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 			
 						<tr>
 				<td>Street Address:</td>
-				<td><form:input path="address[0].streetAddress" size="30" required="required" />
+				<td><form:input path="address[0].streetAddress" size="30" required="required" pattern="[A-z0-9, ]{1,}"/>
 					<font color="red"><form:errors path="address[0].streetAddress" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>City:</td>
-				<td><form:input path="address[0].city" size="30" required="required" />
+				<td><form:input path="address[0].city" size="30" required="required" pattern="[A-z ]{1,}"/>
 					<font color="red"><form:errors path="address[0].city" /></font></td>
 			</tr>
 
 			<tr>
 				<td>State:</td>
-				<td><form:input path="address[0].state" size="30" required="required" />
+				<td><form:input path="address[0].state" size="30" required="required" pattern="[A-z ]{1,}"/>
 					<font color="red"><form:errors path="address[0].state" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>Country:</td>
-				<td><form:input path="address[0].country" size="30" required="required" />
+				<td><form:input path="address[0].country" size="30" required="required" pattern="[A-z ]{1,}"/>
 					<font color="red"><form:errors path="address[0].country" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>Zip code:</td>
-				<td><form:input path="address[0].zipCode" size="30" required="required" />
+				<td><form:input path="address[0].zipCode" size="30" required="required" pattern="[0-9]{5,5}"/>
 					<font color="red"><form:errors path="address[0].zipCode" /></font></td>
 			</tr>
 			
@@ -115,31 +111,31 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 			
 						<tr>
 				<td>Street Address:</td>
-				<td><form:input path="address[1].streetAddress" size="30" required="required" />
+				<td><form:input path="address[1].streetAddress" size="30" required="required" pattern="[A-z0-9, ]{1,}"/>
 					<font color="red"><form:errors path="address[1].streetAddress" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>City:</td>
-				<td><form:input path="address[1].city" size="30" required="required" />
+				<td><form:input path="address[1].city" size="30" required="required" pattern="[A-z ]{1,}"/>
 					<font color="red"><form:errors path="address[1].city" /></font></td>
 			</tr>
 
 			<tr>
 				<td>State:</td>
-				<td><form:input path="address[1].state" size="30" required="required" />
+				<td><form:input path="address[1].state" size="30" required="required" pattern="[A-z ]{1,}"/>
 					<font color="red"><form:errors path="address[1].state" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>Country:</td>
-				<td><form:input path="address[1].country" size="30" required="required" />
+				<td><form:input path="address[1].country" size="30" required="required" pattern="[A-z ]{1,}"/>
 					<font color="red"><form:errors path="address[1].country" /></font></td>
 			</tr>
 			
 			<tr>
 				<td>Zip code:</td>
-				<td><form:input path="address[1].zipCode" size="30" required="required" />
+				<td><form:input path="address[1].zipCode" size="30" required="required" pattern="[0-9]{5,5}"/>
 					<font color="red"><form:errors path="address[1].zipCode" /></font></td>
 			</tr>
 			

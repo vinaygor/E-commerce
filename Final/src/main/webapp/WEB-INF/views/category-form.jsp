@@ -31,7 +31,7 @@
 			</tr>
 		</table>
 		<c:if test="${errorMessage!=null}">
-			<p style="color:red;">${errorMessage}</p>
+			<p style="color:red;">${errormessage}</p>
 		</c:if>
 		<c:if test="${message!=null}">
 			<p style="color:green;">${message}</p>

@@ -33,7 +33,7 @@ public class Order implements Serializable {
     private int quantity;
     
     @Column(name="iscompleted")
-    private boolean isCompleted;
+    private boolean completed;
     
     @Column(name ="sellername")
     private String sellerName;
@@ -59,15 +59,17 @@ public class Order implements Serializable {
 	}
 
 
+	
+	
+
+
 	public boolean isCompleted() {
-		return isCompleted;
+		return completed;
 	}
 
-
-	public void setCompleted(boolean isCompleted) {
-		this.isCompleted = isCompleted;
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
 	}
-
 
 	public java.util.Calendar getDateTime() {
         return dateTime;

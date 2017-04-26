@@ -19,7 +19,7 @@ public class UserDAO extends DAO {
 		begin();
 		Query q=getSession().createQuery("from User where username =:username");
 		q.setString("username",username);
-		
+		q.setMaxResults(1);
 		User user=(User)q.uniqueResult();
 		if(user==null)
 		{
@@ -36,7 +36,7 @@ public class UserDAO extends DAO {
 		begin();
 		Query q=getSession().createQuery("from Email where emailAddress =:emailAddress");
 		q.setString("emailAddress",email);
-		
+		q.setMaxResults(1);
 		Email emailObj=(Email)q.uniqueResult();
 		if(emailObj==null)
 		{

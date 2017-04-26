@@ -27,6 +27,7 @@
 		<exclude-mapping path="/user/login*"/>
 		<exclude-mapping path="/user/customer_register.htm"/>
 		<exclude-mapping path="/user/seller_registration.htm"/>
+		<exclude-mapping path="/user/seller_register.htm"/>
 		<beans:bean class="com.my.spring.interceptor.UserInterceptor">
 		<beans:property name="errorPage" value="" />
 		</beans:bean>
