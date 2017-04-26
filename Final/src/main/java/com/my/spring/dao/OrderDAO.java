@@ -153,9 +153,31 @@ public class OrderDAO extends DAO{
 			}
 		catch(HibernateException e)
 		{
-			
+			rollback();
+			System.out.println("There was some problem with fetching sellerOrderList with username and status paramter");
 		}
 		return null;
+	}
+	
+	public void updateCompletedStatus(String salesOrderId,String sellerName){
+		try{
+			begin();
+			Query q = getSession().createQuery("Update Order set completed = true where orderid like :salesOrderID and sellerName like :sellerName");
+			q.setString("salesOrderID", salesOrderId);
+			q.setString("sellerName", sellerName);
+			System.out.println("Inside updateCompletedStatus method - SO_ID:"+salesOrderId);
+			int result = q.executeUpdate();
+			System.out.println("Excuted method in updateCompletedStatus method");
+			commit();
+			close();
+			System.out.println("The number of rows changed are: "+result);
+			
+		}
+		catch(HibernateException e)
+		{
+			rollback();
+			System.out.println("There was an error while updating the delivery status. Exception:"+e);
+		}
 	}
 	
 	

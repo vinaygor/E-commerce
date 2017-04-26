@@ -226,6 +226,58 @@ public class AdminController {
 		return new ModelAndView("view-order-sellers","pendingHashmap",pendingHashmap);
 	}
 	
+	@RequestMapping(value="/seller/updateOrderStatus.htm", method=RequestMethod.GET, produces= MediaType.ALL_VALUE)
+	public @ResponseBody String updateOrderStatus(HttpServletRequest request){
+		HttpSession session=request.getSession();
+		User seller = (User)session.getAttribute("user");
+		String sellerName = seller.getName();
+		String orderId = (String)request.getParameter("orderId");
+		orderDao.updateCompletedStatus(orderId,sellerName);
+		return "updated";
+		
+	}
+	
+	@RequestMapping(value="/seller/viewordersajax.htm", method=RequestMethod.GET, produces=MediaType.ALL_VALUE)
+	public @ResponseBody String getOrderForSellerForAjax(HttpServletRequest request)
+	{
+		HttpSession session = request.getSession();
+		User user=(User)session.getAttribute("user");
+		String sellerName=user.getName();
+		List<Order> orders = orderDao.sellerOrderList(sellerName,true);
+		
+		 HashMap <String, ArrayList<Order>> hashmap = new HashMap<String, ArrayList<Order>>();
+	        for(Order o: orders) {
+	            ArrayList<Order> orderList = hashmap.get(o.getOrderid());
+	            
+	            if(orderList == null) {
+	                orderList = new ArrayList<Order>();
+	                orderList.add(o);
+	                hashmap.put(o.getOrderid(), orderList);
+	            } else {
+	                orderList.add(o);
+	            }
+	        }
+		
+		List<Order> pendingList = orderDao.sellerOrderList(sellerName,false);
+		
+		 HashMap <String, ArrayList<Order>> pendingHashmap = new HashMap<String, ArrayList<Order>>();
+	        for(Order o: pendingList) {
+	            ArrayList<Order> orderList = pendingHashmap.get(o.getOrderid());
+	            
+	            if(orderList == null) {
+	                orderList = new ArrayList<Order>();
+	                orderList.add(o);
+	                pendingHashmap.put(o.getOrderid(), orderList);
+	            } else {
+	                orderList.add(o);
+	            }
+	        }
+		System.out.println("Size of list for user :"+sellerName+" is - "+orders.size());
+		request.setAttribute("hashmap", hashmap);
+		request.setAttribute("pendingHashmap", pendingHashmap);
+		return "success";
+	}
+	
 
 	
 }

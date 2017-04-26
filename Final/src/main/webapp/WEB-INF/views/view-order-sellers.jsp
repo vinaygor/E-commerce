@@ -7,6 +7,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>View Orders</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$('.update').click(function(e){
+		e.preventDefault();
+		var answer;
+		var id=$(this).parent().parent().parent().parent().data('id')
+		var urlPath='updateOrderStatus.htm?orderId='+id;
+		//alert(urlPath);
+		$.ajax({
+			url:urlPath,
+			type:'GET',
+			success:function(response){
+				alert(response);
+				if(response == 'updated')
+					{
+					$.ajax({
+							url:'viewordersajax.htm',
+							type: 'GET',
+							success:function(resp){
+								$("#result").load(location.href + " #result>*", "");
+							}
+							});
+					}
+			}
+		});
+		
+		
+	});
+	
+});
+</script>
+
+
+
 </head>
 <body>
     
@@ -19,6 +55,7 @@
 <a href="${contextPath}/user/vieworders.htm" >My Orders</a> <br />
 <a style="float:right;" href="${contextPath}/logout.htm">Logout</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <br />
+<div id="result">
     <h1>Completed Orders History</h1>
     <c:choose>
         <c:when test="${!empty hashmap}">
@@ -65,14 +102,13 @@
             <c:set var="total" value="${0}" />
             <c:out value="Order ID: ${entry.key}" />
             <br/>
-            <table id="table" border="1" cellpadding="5">
+            <table id="table" data-id="${entry.key}" border="1" cellpadding="5">
                 <tr>
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Total Price</th>
                     <th>Seller Name</th>
-                    
-                
+                    <th><a class="update" href="#">Confirm Delivery</a></th>
                 </tr>
                 <c:forEach var="order" items="${entry.value}">        
                 <c:if test="${order.completed==false}">
@@ -81,12 +117,13 @@
                         <td>${order.quantity}</td>
                         <td><c:set var="totalPrice" value="${order.quantity * order.product.price}" />${order.quantity * order.product.price}</td>
                         <td>${order.product.user.name}</td>
-                        
+            
                         <c:set var="total" value="${total+totalPrice}" />
               
                     </tr>
                 </c:if>
                 </c:forEach>
+                
             </table>
             <h3>Total Price: $<c:out value="${total}" /></h3>
             <br/>
@@ -96,6 +133,6 @@
             <c:out value="No Orders" />
         </c:otherwise>
     </c:choose>
-   
+   </div>
 </body>
 </html>
